@@ -3,7 +3,7 @@ title: Elliot's Hut
 subtitle: Slow and Steady
 email: yimsb04@gmail.com
 description: What I have learned
-baseurl: "/forty-jekyll-theme" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: https://elliotyim.github.io # the base hostname & protocol for your site
 author: Elliot Yim
 # street_address: 1234 Somewhere Road
