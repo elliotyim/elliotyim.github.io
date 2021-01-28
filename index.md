@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Home
-landing-title: 'Hi, my name is Forty'
+landing-title: "Stay Hungry. Stay Foolish."
 description: null
 image: null
 author: null
