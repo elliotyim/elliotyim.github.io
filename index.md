@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Home
-landing-title: "Stay Hungry. Stay Foolish."
+landing-title: "Development as a hobby"
 description: null
 image: null
 author: null
