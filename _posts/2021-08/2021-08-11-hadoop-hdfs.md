@@ -21,7 +21,7 @@ date: 2021-08-11 9:30
 
 - Apache Nutch 웹 서치 엔진 프로젝트에서 시작한 대량의 서로 다른 타입의 데이터 셋을 저장할 수 있게 만들어 주는 분산 파일 시스템으로 유닉스 운영채제에 기반을 두는 일련의 표준 운영체제 인터페이스인 POSIX의 기준에 좀 더 유연하게 만들어졌다
 - 결함에 강하고(fault-tolerant) 저 비용의 하드웨어에 맞게 설계 되어 있다고 한다
-- HDFS는 NameNode와 DataNode가 있다
+- HDFS는 Master인 NameNode와 Slave인 DataNode들로 구성되어 있다
 
 ## HDFS의 목적
 
@@ -36,11 +36,37 @@ date: 2021-08-11 9:30
   - 반드시 끝에 append만 허용되고 임의의 지점에 append 할 수는 없다
     - 이를 통해 데이터의 일관성과 높은 데이터 처리량이 보장된다
     - MapReduce와 웹 크롤러 어플리케이션이 이런 모델과 사용하기에 적합하다
--
+- 연산의 이동이 데이터의 이동보다 더 코스트가 적다
+  - 데이터가 크면 클 수록 데이터를 옮기는 것보다 연산을 요청 받아 처리하는 편이 네트워크의 혼잡도를 최소화하고 전체적인 처리량을 늘리기 때문에 더 효율적이다
 
 ## Name Node
 
-- 메인 노드로 실제 데이터가 아닌 로그 파일 또는 목차와도 같은 메타데이터를 저장한다.
+- 메인 노드로 실제 데이터가 아닌 로그 파일과 데이터 블록의 수, 파일 이름, 파일 경로, 블록 ID, 블록의 위치, 레플리카의 수, slave 설정 값 등의 메타데이터를 메모리에 저장한다.
+- HDFS의 메타데이터는 2개의 파일로 관리된다
+  - Edit Log: 파일 시스템에서 일어나는 모든 변경 기록
+  - FS Image
+    - 매핑된 파일 블록들과 파일 시스템 속성을 포함한 전체 파일 시스템 네임스페이스가 저장된다
+    - 다수의 FS Image 복사본과 EditLog를 관리하도록 설정하여 파일 깨짐으로 인한 기능 장애에 대처할 수 있다
+      - 이 때의 업데이트 작업은 비동기적으로 일어난다
+    - Name Node는 주기적으로 Data Node로 부터 health check 신호와 파일 블록 report를 받는다.
+- 실제로 데이터를 저장하는 것은 Data Node 이지만 Name Node를 통해 명령을 내린다
+
+## Data Node
+
+- 모든 데이터는 Data Node에 저장된다. 이 Data Node들을 분산 환경의 표준 장비(일반적인 데스크탑이나 노트북 같은 장비들)를 사용하여 매우 저렴하게 구성할 수 있다.
+- Data Node는 Name Node의 요청에 따라 데이터의 읽기, 쓰기, 생성, 삭제, 그리고 데이터 블록의 레플리카를 만든다
+- Data Node는 파일들을 같은 폴더에 두지 않는데, 이는 로컬 파일 시스템이 한 폴더에 있는 대량의 파일들을 효율적으로 지원하지 않기 때문이다
+- Data Node는 주기적으로 health check 신호와 해당 노드에 저장되어 있는 파일과 블록에 대한 정보를 보낸다
+- Data Node가 기동되면 Name Node에게 자신이 가지고 있는 파일 블록들의 리스트를 알리는데, 이 때 Data Node가 10분 간격으로 아무런 신호를 보내지 않는다면 Name Node는 해당 Data Node가 죽었다고 간주하고 다른 Data Node에게 replica를 만들도록 지시한다
+
+## Data Replcation
+
+- HDFS는 각 파일을 연속적인 블록으로 저장하는데 이 블록들은 결함 내성을 위해 복제(replicated)된다
+- 마지막 블록을 제외한 파일 하나를 이루는 모든 블록의 사이즈는 같다
+- Replication 속성은 파일 생성 시에 지정할 수 있고, 추후에 변경도 가능하다
+- 새로운 파일이 만들어지면 Name Node는 Data Node의 리스트를 조회하고 사용자로 하여금 첫번째 Data Node에 파일을 쓸 수 있도록 해준다.
+- 사용자가 파일을 쓰면 첫번째 Data Node는 데이터 블록들을 받아서 자신의 로컬 저장소에 저장하고, 이 데이터 블록들을 두번째 Data Node에 전송하고 이를 설정된 특정 replica의 수 만큼 반복한다.
+- 파일 쓰기가 완료되면 마지막 Data Node로 부터 ACK 메시지가 전달되고 첫 번째 Data Node 까지 온 후 Name Node에 전달되면 해당 트랜잭션은 commit되어 성공적으로 종료된다
 
 # References
 
@@ -49,3 +75,4 @@ date: 2021-08-11 9:30
 - https://www.edureka.co/blog/hadoop-ecosystem
 - https://www.linkedin.com/pulse/analysis-hadoop-hdfs-distributed-file-system-amit-kriplani
 - https://hadoop.apache.org/docs/r3.1.1/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html
+- http://deepdivetechblog.com/hadoop-hdfs/
