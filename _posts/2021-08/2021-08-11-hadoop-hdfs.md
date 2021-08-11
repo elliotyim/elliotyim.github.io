@@ -6,6 +6,8 @@ image: /assets/images/hadoop/HadoopLogo.png
 date: 2021-08-11 9:30
 ---
 
+# [WIP] Hadoop (1) - HDFS
+
 # Hadoop
 
 ![HadoopEcosystem](/assets/images/hadoop/HadoopEcosystem.png)
