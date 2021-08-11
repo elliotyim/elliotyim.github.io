@@ -1,7 +1,7 @@
 ---
 layout: post
 title: [WIP] Hadoop (1) - HDFS
-description: About
+description: Hadoop Ecosystems
 image: /assets/images/hadoop/HadoopLogo.png
 date: 2021-08-11 9:30
 ---
@@ -59,12 +59,12 @@ date: 2021-08-11 9:30
 - Data Node는 주기적으로 health check 신호와 해당 노드에 저장되어 있는 파일과 블록에 대한 정보를 보낸다
 - Data Node가 기동되면 Name Node에게 자신이 가지고 있는 파일 블록들의 리스트를 알리는데, 이 때 Data Node가 10분 간격으로 아무런 신호를 보내지 않는다면 Name Node는 해당 Data Node가 죽었다고 간주하고 다른 Data Node에게 replica를 만들도록 지시한다
 
-## Data Replcation
+## Data Replication
 
 - HDFS는 각 파일을 연속적인 블록으로 저장하는데 이 블록들은 결함 내성을 위해 복제(replicated)된다
 - 마지막 블록을 제외한 파일 하나를 이루는 모든 블록의 사이즈는 같다
 - Replication 속성은 파일 생성 시에 지정할 수 있고, 추후에 변경도 가능하다
-- 새로운 파일이 만들어지면 Name Node는 Data Node의 리스트를 조회하고 사용자로 하여금 첫번째 Data Node에 파일을 쓸 수 있도록 해준다.
+- 새로운 파일이 만들어지면 Name Node는 Replica Target Data Node들의 리스트를 조회하고 사용자로 하여금 첫번째 Data Node에 파일을 쓸 수 있도록 해준다.
 - 사용자가 파일을 쓰면 첫번째 Data Node는 데이터 블록들을 받아서 자신의 로컬 저장소에 저장하고, 이 데이터 블록들을 두번째 Data Node에 전송하고 이를 설정된 특정 replica의 수 만큼 반복한다.
 - 파일 쓰기가 완료되면 마지막 Data Node로 부터 ACK 메시지가 전달되고 첫 번째 Data Node 까지 온 후 Name Node에 전달되면 해당 트랜잭션은 commit되어 성공적으로 종료된다
 
