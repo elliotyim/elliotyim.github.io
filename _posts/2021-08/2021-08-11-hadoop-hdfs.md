@@ -68,6 +68,24 @@ date: 2021-08-11 9:30
 - 사용자가 파일을 쓰면 첫번째 Data Node는 데이터 블록들을 받아서 자신의 로컬 저장소에 저장하고, 이 데이터 블록들을 두번째 Data Node에 전송하고 이를 설정된 특정 replica의 수 만큼 반복한다.
 - 파일 쓰기가 완료되면 마지막 Data Node로 부터 ACK 메시지가 전달되고 첫 번째 Data Node 까지 온 후 Name Node에 전달되면 해당 트랜잭션은 commit되어 성공적으로 종료된다
 
+## Rack Awareness
+
+- Rack 단위의 장애에 대해 최대한 가용성을 높이기 위해 데이터 블록의 복제본을 관리할 때 복제본이 한 군데에 몰려 있지 않도록 관리 복제본 개수가 3개인 경우 두 개는 같은 렉의 다른 노드에 저장하고 나머지 하나는 다른 렉이 있는 노드에 저장하는 것을 말한다
+- 데이터 복제시 Rack을 선택하는 문제는 데이터의 손실을 방지하는 것과 네트워크의 성능을 높이는 측면에서 아무 밀접한 관련이 있다
+- 각 블록에 대한 쓰기 작업이 Rack들에 분산되기 때문에 당연히 쓰기 작업에 대한 비용이 증가한다.
+- 관리 복제본 개수의 기본 값은 3개인데, 이보다 많을 경우 4번째 복제본 부터는 랙 당 복제본의 개수가 상한치인 (복제본 개수-1) / 랙 개수 + 2의 아래를 유지하면서 랜덤으로 위치시킨다.
+
+## Check Point
+
+- HDFS 체크 포인트의 목적은 파일 시스템의 메타데이터의 스냅샷을 찍어서 FS Image에 저장함으로써 일정한 형태의 파일 시스템 메타데이터를 보장하는 것이다
+- Name Node가 구동되면 FS Image와 EditLog를 디스크에서 읽고 모든 트랜잭션을 In-memory FS Image에 적용한 뒤 이 새로운 버전의 FS Image를 디스크의 FS Image에 갱신하는데 이 작업을 checkpoint라고 한다
+
+## Communication Protocol
+
+- 모든 HDFS 통신 프로토콜은 TCP/IP 계층 위에서 이루어져 있다
+- 사용자가 자신의 프로토콜의 사용하여 NameNode와 통신을 시작하면 DataNode도 DataNode 자신의 프로토콜을 사용하여 NameNode와 통신을 시작한다
+- NameNode는 어떠한 RPC도 사용하지 않고, 그저 사용자와 DataNode들의 요청에 응답만 할 뿐이다
+
 # References
 
 - http://blog.newtechways.com/2017/10/apache-hadoop-ecosystem.html
@@ -76,3 +94,4 @@ date: 2021-08-11 9:30
 - https://www.linkedin.com/pulse/analysis-hadoop-hdfs-distributed-file-system-amit-kriplani
 - https://hadoop.apache.org/docs/r3.1.1/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html
 - http://deepdivetechblog.com/hadoop-hdfs/
+- https://fany4017.tistory.com/51
