@@ -86,6 +86,29 @@ date: 2021-08-11 9:30
 - 사용자가 자신의 프로토콜의 사용하여 NameNode와 통신을 시작하면 DataNode도 DataNode 자신의 프로토콜을 사용하여 NameNode와 통신을 시작한다
 - NameNode는 어떠한 RPC도 사용하지 않고, 그저 사용자와 DataNode들의 요청에 응답만 할 뿐이다
 
+## NameNode High Availability (HA)
+
+- NameNode는 동작하지 않게 되면 치명적이기 때문에 보통 튼튼한 하드웨어에 배포되며, HDFS의 고가용성 아키텍처는 2개의 NameNode들을 같은 클러스터에 active/passive 설정으로 사용할 수 있게 한다
+
+### Active NameNode
+
+- 클러스터 내의 사용자의 모든 작업을 핸들링 한다
+
+### Passive NameNode (Stanby Node)
+
+- Slave NameNode로 Active NameNode와 비슷한 데이터를 가지고 있다
+- failover에 빠르게 대응하기 위해 충분한 상태(state)를 유지한다
+
+### JournalNode
+
+![QJM-architecture](/assets/images/hadoop/QJM-architecture.png)
+
+- Stanby node가 Active node와 상태를 동기화 시키기 위해 JournalNode라고 불리는 분리된 daemon을 통해 Active node와 서로 통신한다
+- JournalNode는 최소 3개 이상으로 구성되며, 다른 NameNode, JobTracker, Yarn ResourceManager 등의 하둡 daemon들에 배치된다
+- Active node에서 어떤 Namespace가 수정될 때 마다, 주요 Journal Node들에 이 기록이 로깅된다. Stanby node는 이 수정사항을 읽을 수 있고 항상 변화를 체크하고 있는다
+- failover 이벤트에서 Standby node는 그 자신이 Active 상태가 되기 전에 모든 수정 기록들을 JournalNode들에게서 읽어온다
+- 빠른 failover를 제공하기 위해 Standby node는 클러스터의 블록들에 대한 정보를 최신으로 유지할 필요가 있다. 이를 위해 모든 DataNode들은 Active node와 Standby node 양쪽으로 블록 리포트와 healthcheck 메시지를 보낸다
+
 # References
 
 - http://blog.newtechways.com/2017/10/apache-hadoop-ecosystem.html
