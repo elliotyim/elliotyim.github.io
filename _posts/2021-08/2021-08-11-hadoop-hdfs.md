@@ -1,12 +1,12 @@
 ---
 layout: post
-title: [WIP] Hadoop (1) - HDFS
+title: Hadoop (1) - HDFS
 description: Hadoop Ecosystems
 image: /assets/images/hadoop/HadoopLogo.png
 date: 2021-08-11 9:30
 ---
 
-# [WIP] Hadoop (1) - HDFS
+# Hadoop (1) - HDFS
 
 # Hadoop
 
