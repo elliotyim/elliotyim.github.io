@@ -1,53 +1,22 @@
-<!DOCTYPE html>
-<!--
-	Forty by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-  {% include head.html %}
+---
+layout: archive
+---
 
-  <body>
-    {% include header.html %}
+{{ content }}
 
-    <!-- Banner -->
-    <section id="banner" class="major">
-      <div class="inner">
-        <header class="major">
-          <h1>{{ page.landing-title }}</h1>
-        </header>
-        <div class="content">
-          <p style="text-transform: uppercase">{{ site.description }}</p>
-          <ul class="actions">
-            <li>
-              <a href="/all_posts.html" class="button next scrolly"
-                >See all posts</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
-    <!-- Main -->
-    {% comment %}
-    <div id="main">
-      <!-- One -->
-      {% include tiles.html %}
+{% if paginator %}
+  {% assign posts = paginator.posts %}
+{% else %}
+  {% assign posts = site.posts %}
+{% endif %}
 
-      <!-- Two -->
-      <section id="two">
-        <div class="inner">
-          <header class="major">
-            <h2>Massa libero</h2>
-          </header>
-          <p>{{ content }}</p>
-          <ul class="actions">
-            <li><a href="landing.html" class="button next">Get Started</a></li>
-          </ul>
-        </div>
-      </section>
-    </div>
-    {% endcomment %} {% include footer.html %}
-  </body>
-</html>
+{% assign entries_layout = page.entries_layout | default: 'list' %}
+<div class="entries-{{ entries_layout }}">
+  {% for post in posts %}
+    {% include archive-single.html type=entries_layout %}
+  {% endfor %}
+</div>
+
+{% include paginator.html %}

@@ -4,3 +4,5 @@ gemspec
 gem "webrick", "~> 1.7"
 gem "tzinfo"
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+gem 'wdm', '>= 0.1.0'
