@@ -33,10 +33,24 @@ date: 2021-08-17 9:30
 
 ![](/assets/images/recommender-system/rating-matrix.jpg)
 
-- 모든 유저가 모든 아이템에 대해 평점을 매기는 것은 흔치 않기 때문에 비슷한 그룹의 유저의 평가들을 토대로 추측을 해야한다
+- 모든 유저가 모든 아이템에 대해 평점을 매기는 것은 흔치 않기 때문에 Collaborative Filtering 에서는 비슷한 그룹의 유저의 평가들을 토대로 추측을 해야한다
+
+### Collaborative Filtering 적용
+
+- Collaborative Filtering을 적용하기 위해서는 아래의 두 가지 스텝을 밟는다
+  - 다른 유저들의 취향이 반영된 아이템들을 토대로 추천을 하기에 앞서 유사한 취향의 유저의 그룹을 찾는다
+  - 한 유저가 아직 평가를 하지 않은 아이템들에 대한 평가를 예상한다
+- 이를 위한 고려사항은 아래와 같다
+  - 어떻게 유사한 취향의 유저들을 묶을 것인가?
+  - 유저 그룹에 속한 한 유저가 어떻게 평가를 내릴 것인가?
+  - 평가에 대한 정확도를 어떻게 측정할 것인가?
+- Collaborative Filtering 만을 사용한 접근은 유저의 나이나 영화의 장르, 또는 유저나 아이템에 대한 어떤 데이터가 유사도 측정의 요인이 될 수는 없다
+  - 오직 유저의 아이템에 대한 평가(explicit 하거나 implicit한 것)로만 판단이 된다
+  - ex) 나이 차이가 많이 나는 두 유저가 같은 영화를 10점으로 평가했다면 이 유저들은 유사한 그룹으로 고려되어진다
 
 # References
 
 - https://www.researchgate.net/figure/Content-based-filtering-vs-Collaborative-filtering-Source_fig5_323726564
 - https://www.upwork.com/resources/what-is-content-based-filtering
 - https://techblog-history-younghunjo1.tistory.com/166
+- https://realpython.com/build-recommendation-engine-collaborative-filtering/
