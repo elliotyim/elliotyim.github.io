@@ -48,14 +48,14 @@ date: 2021-08-17 9:30
 
 ---
 
-- reaction은 explicit(1~5까지의 평점 또는 좋아요나 싫어요 등)과 implicit(어떤 아이템 조회, 위시리스트에 추가, 아이템을 보는데 들인 시간 등)한 부분으로 나뉜다
+![](/assets/images/recommender-system/rating-matrix.jpg)
+
+- reaction은 명시적인 부분(1~5까지의 평점 또는 좋아요나 싫어요 등)과 암시적인 부분(어떤 아이템 조회, 위시리스트에 추가, 아이템을 보는데 들인 시간 등)으로 나뉜다
 - dataset을 다루는데에 보통 각 아이템에 대한 유저 그룹의 reaction을 표시한 matrix를 사용한다
 
 ### Memory-based
 
 ---
-
-![](/assets/images/recommender-system/rating-matrix.jpg)
 
 - Memory-based 방식은 한 유저가 아직 평가하지 않은 아이템을 다른 유저들이 평가한 점수로 예측하는 `User-based` 방식과 한 유저가 내린 아이템들을 가지고 평가를 예측하는 `Item-based` 방식으로 나뉜다
 - 간단한 예시로, 위의 그림의 경우 u4와 u5가 i2에 대해 똑같이 4점으로 평점을 줬으므로 u4의 i4에 대한 평가는 u5와 비슷한 5점일 것이라고 추정하는 것이다 (User-based)
@@ -64,18 +64,33 @@ date: 2021-08-17 9:30
 
 ![](/assets/images/recommender-system/user-based.png)
 
-- user 간의 유사도(같은 성별, 연령대 등)를 측정한뒤, 유사도가 높은 user들이 선호하는 상품을 추천한다
+- user 간의 유사도(같은 성별, 연령대 등)를 측정한 뒤, 유사도가 높은 user들이 내린 평가를 종합하여 평가를 예측한다
+- 자세한 내용은 https://www.slideshare.net/xamat/recommender-systems-machine-learning-summer-school-2014-cmu 의 슬라이드 35p~38p를 참조
 
 **Item-based**
 
 ![](/assets/images/recommender-system/item-based.png)
 
-- user-based와 같은데 target만 다르다. Item-based에서는 영화 간의 유사도를 측정한뒤, 비슷한 영화에 대해 한 평가를 토대로 추측한다
+- user-based와 같은데 target만 다르다. Item-based에서는 영화 간의 유사도(같은 장르나 시리즈, 감독 등)를 측정한 뒤, 비슷한 영화에 대해 한 평가를 토대로 추측한다
+- 자세한 내용은 https://www.slideshare.net/xamat/recommender-systems-machine-learning-summer-school-2014-cmu 의 슬라이드 47p~52p를 참조
+
+### Model-based
+
+---
+
+### Cosine Similarity
+
+---
+
+[https://needjarvis.tistory.com/665](https://needjarvis.tistory.com/665)
 
 # References
 
 - https://www.researchgate.net/figure/Content-based-filtering-vs-Collaborative-filtering-Source_fig5_323726564
 - https://www.upwork.com/resources/what-is-content-based-filtering
 - https://techblog-history-younghunjo1.tistory.com/166
-- https://realpython.com/build-recommendation-engine-collaborative-filtering/
+- https://realpython.com/build-recommendation-engine-collaborative-filtering
+- https://needjarvis.tistory.com/665
+- https://data-matzip.tistory.com/entry/Collaborative-FilteringCF-협업필터링1-특징-개념-수정필요
+- https://www.slideshare.net/xamat/recommender-systems-machine-learning-summer-school-2014-cmu
 - https://blossominkyung.com/archives/collaborative-filtering
