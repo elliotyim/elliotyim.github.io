@@ -78,6 +78,19 @@ date: 2021-08-17 9:30
 
 ---
 
+- user-item matrix를 통해 모델을 학습하는 방법이다. matrix로부터 모델이 학습하고 나면 추천을 할 때는 모델만 있으면 된다
+- 데이터셋 전체를 사용해서 추천 하는 것이 아니라 모델만을 사용하기 때문에 추천이 정확하지 않을 수 있다
+- 모델의 종류는 Baysian Network, Decision Tree, Latent Factor Models, MDP등이 있다
+
+**Matrix Factorization**
+
+![Latent Factor Approach](/assets/images/recommender-system/LatentFactorApproach.png)
+
+- MF는 latent factor 모델의 일종으로, item과 user를 20-100 정도의 vector로 표현한다
+- item을 제목이나 장르, 가수 등으로 표현한 content-based와 달리 latent factor 모델에서는 item을 interaction pattern으로 학습된, 기계가 이해하는 어떤 특징으로 표현한다
+- interaction 정보를 포함하기 때문에 풍부하게 item이나 user를 표현할 수 있다
+-
+
 ### Cosine Similarity
 
 ---
@@ -94,3 +107,4 @@ date: 2021-08-17 9:30
 - https://data-matzip.tistory.com/entry/Collaborative-FilteringCF-협업필터링1-특징-개념-수정필요
 - https://www.slideshare.net/xamat/recommender-systems-machine-learning-summer-school-2014-cmu
 - https://blossominkyung.com/archives/collaborative-filtering
+- https://dnddnjs.github.io/recomm/2019/08/15/recommendation_system_basics/
