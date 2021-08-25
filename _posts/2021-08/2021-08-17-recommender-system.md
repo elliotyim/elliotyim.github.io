@@ -95,7 +95,12 @@ date: 2021-08-17 9:30
 
 ---
 
-[https://needjarvis.tistory.com/665](https://needjarvis.tistory.com/665)
+![CosineSimilarity](/assets/images/recommender-system/CosineSimilarity.png)
+
+- 두 벡터 간의 코사인 각도를 통해 구할 수 있는 유사도를 의미하며, 방향이 완전히 동일한 경우에는 1의 값을 가지며 두 벡터가 90도로 교차하면 0의 값을 가진다
+- 주로 문서의 유사도를 측정할 때 사용되며, 추천 시스템에 적용한다고 하면 같은 그룹 내의 유저가 비슷한 취향을 가지는 지의 여부를 판단할 때 쓰면 좋을 것 같다
+
+Cosine Similarity에 대해 자세히 설명된 글: [https://needjarvis.tistory.com/665](https://needjarvis.tistory.com/665)
 
 # References
 
@@ -108,3 +113,4 @@ date: 2021-08-17 9:30
 - https://www.slideshare.net/xamat/recommender-systems-machine-learning-summer-school-2014-cmu
 - https://blossominkyung.com/archives/collaborative-filtering
 - https://dnddnjs.github.io/recomm/2019/08/15/recommendation_system_basics/
+- https://wikidocs.net/24603
