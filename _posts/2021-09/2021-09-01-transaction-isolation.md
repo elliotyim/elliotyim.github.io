@@ -26,9 +26,29 @@ date: 2021-09-01 09:20
 - 각 트랜잭션에서의 변경 내용이 COMMIT이나 ROLLBACK 여부에 상관 없이 다른 트랜잭션에서 값을 읽을 수 있다
 - 정합성에 문제가 많은 격리 수준이기 때문에 잘 사용되지 않는다
 - 위의 그림 처럼 COMMIT 되지 않은 상태임에도 UPDATE된 값을 다른 트랜잭션에서 읽을 수 있다
-- DIRTY READ 현상이 발생한다
+- Dirty Read 현상이 발생한다
   - 작업이 커밋되지 않은 트랜잭션의 데이터를 다른 트랜잭션에서 읽을 수 있는 현상
 - ORACLE은 이 레벨을 지원하지 않는다
+
+## READ COMMITTED
+
+![read-committed](/assets/images/transaction-isolation/read-committed.png)
+
+- RDB에서 기본적으로 사용되고 있는 격리수준으로 Dirty Read 현상이 발생하지 않는다
+- Select문이 실행되는 동안 Shared Lock이 걸리고 조회 시에는 실제 테이블의 값을 가져오는 것이 아닌 Undo 영역에 백업된 레코드에서 값을 가져온다
+- 하나의 트랜잭션에서 똑같은 Select 쿼리를 실행했을 때는 항상 같은 결과를 가져와야 하는 REPEATABLE READ의 정합성에 어긋난다
+  - Non-repeatable Read
+    - 다른 트랜잭션에서 같은 쿼리로 2번 이상 조회했을 때 그 결과가 상이한 상황을 말한다
+    - 보통 데이터의 수정 및 삭제가 발생했을 경우에 일어난다
+
+## REPEATABLE READ
+
+- MySQL에서 기본으로 제공하는 격리수준으로 트랜잭션마다 트랜잭션 ID를 부여하여 해당 트랜잭션 ID보다 낮은 트랜잭션 번호에서 변경한 것만 읽는 격리수준이다
+  - 트랜잭션이 시작되기 전에 커밋된 내용만 조회할 수 있다
+- Undo 공간에 백업해두고 실제 레코드 값을 변경한다
+  - 백업된 데이터는 불필요하다고 판단하는 시점에 주기적으로 삭제한다
+  - Undo에 백업된 레코드가 많아지면 MySQL 서버의 처리 성능이 떨어질 수 있다
+- 이러한 변경방식을 MVCC(Multi Version Concurrency Control)라고 부른다
 
 # References
 
