@@ -21,6 +21,8 @@ date: 2021-09-01 09:20
 
 ## READ UNCOMMITTED
 
+---
+
 ![read-uncommitted](/assets/images/transaction-isolation/read-uncommitted.png)
 
 - 각 트랜잭션에서의 변경 내용이 COMMIT이나 ROLLBACK 여부에 상관 없이 다른 트랜잭션에서 값을 읽을 수 있다
@@ -31,6 +33,8 @@ date: 2021-09-01 09:20
 - ORACLE은 이 레벨을 지원하지 않는다
 
 ## READ COMMITTED
+
+---
 
 ![read-committed](/assets/images/transaction-isolation/read-committed.png)
 
@@ -43,12 +47,28 @@ date: 2021-09-01 09:20
 
 ## REPEATABLE READ
 
+---
+
+![RepeatableRead](/assets/images/transaction-isolation/repeatable-read.png)
+
 - MySQL에서 기본으로 제공하는 격리수준으로 트랜잭션마다 트랜잭션 ID를 부여하여 해당 트랜잭션 ID보다 낮은 트랜잭션 번호에서 변경한 것만 읽는 격리수준이다
   - 트랜잭션이 시작되기 전에 커밋된 내용만 조회할 수 있다
 - Undo 공간에 백업해두고 실제 레코드 값을 변경한다
   - 백업된 데이터는 불필요하다고 판단하는 시점에 주기적으로 삭제한다
   - Undo에 백업된 레코드가 많아지면 MySQL 서버의 처리 성능이 떨어질 수 있다
 - 이러한 변경방식을 MVCC(Multi Version Concurrency Control)라고 부른다
+- 트랜잭션이 시작 시점 데이터의 일관성을 보장해야 하기 때문에 트랜잭션의 실행시간이 길어질수록 계속 멀티 버전을 관리해야 하는 단점이 있다
+- Phantom Read가 발생할 수 있다.
+
+### Phantom Read
+
+---
+
+![PhantomRead](/assets/images/transaction-isolation/phantom-read.png)
+
+- 한 트랜잭션 내에서 같은 쿼리를 두 번 실행했는데 첫 번째 쿼리에서 없던 유령(Phantom) 레코드가 두 번째 쿼리에서 나오는 현상을 말한다
+- REPEATABLE READ 이하에서만 발생하고 (SERIALIZABLE은 발생하지 않는다), INSERT에 대해서만 발생한다
+- 이를 방지하기 위해서는 쓰기 잠금을 걸어야 한다
 
 # References
 
