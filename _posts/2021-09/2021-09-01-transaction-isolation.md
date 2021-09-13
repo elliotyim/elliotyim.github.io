@@ -70,6 +70,14 @@ date: 2021-09-01 09:20
 - REPEATABLE READ 이하에서만 발생하고 (SERIALIZABLE은 발생하지 않는다), INSERT에 대해서만 발생한다
 - 이를 방지하기 위해서는 쓰기 잠금을 걸어야 한다
 
+## SERIALIZABLE
+
+---
+
+- 가장 단순한 격리 수준이지만 가장 엄격한 격리 수준
+- 읽기 작업에도 공유 잠금을 설정하게 되고, 동시에 다른 트랜잭션에서 한 레코드를 변경하지 못하게 되기 때문에 성능 측면에서는 동시처리성능이 가장 낮다
+- SERIALIZABLE에서는 PHANTOM READ가 발생하지 않지만 일반적으로 데이터베이스에서는 거의 사용되지 않는다
+
 # References
 
 - https://joont92.github.io/db/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B2%A9%EB%A6%AC-%EC%88%98%EC%A4%80-isolation-level/
