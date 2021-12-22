@@ -20,7 +20,7 @@ timezone: Asia/Seoul
 
 title: Elliot's dev hut # the main title
 
-tagline: Hello World! # it will display as the sub-title
+tagline: Web Developer # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   Slow and Steady
