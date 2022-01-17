@@ -43,11 +43,10 @@ def solution(fees, records):
         acc_time_dic[no] += close_time - time
 
     for no, time in acc_time_dic.items():
+        fee = fees[1]
         if time >= fees[0]:
-            fee = fees[1] + math.ceil((time - fees[0]) / fees[2]) * fees[3]
-            answer.append((no, fee))
-        else:
-            answer.append((no, fees[1]))
+            fee += math.ceil((time-fees[0]) / fees[2]) * fees[3]
+        answer.append((no, fee))
 
     return [time for (no, time) in sorted(answer)]
 ```
@@ -58,7 +57,7 @@ def solution(fees, records):
 
 다만, 이번 문제의 풀이는 내 성향이자 단점을 잘 드러내는 것 같다. 난 수행시간 보다 코드의 가독성이나 짧은 정도를 더 선호한다.
 
-23-30 라인의 풀이가 그런데, 저 과정에서 acc_time을 한 번, answer를 두 번(sorted()에서 한 번, 다시 time만 뽑아내기 위해 한 번) 순회한다.
+23-29 라인의 풀이가 그런데, 저 과정에서 acc_time을 한 번, answer를 두 번(sorted()에서 한 번, 다시 time만 뽑아내기 위해 한 번) 순회한다.
 
 처음엔 힙을 사용해서 리스트에 넣을 때 정렬하면서 넣고 그걸 순서대로 pop하면서 time을 뽑아낸 result를 만들까 생각했는데 그건 코드가 좀 더 투박해질 것 같고, 입출차 한 자동차의 대수가 많지 않다면 수행시간이 크게 차이가 나지 않을 것 같아 저렇게 구현했다.
 
