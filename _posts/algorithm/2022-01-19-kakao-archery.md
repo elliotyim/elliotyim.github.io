@@ -4,7 +4,7 @@ title: 2022 KAKAO BLIND RECRUITMENT 양궁대회
 author:
   name: Elliot Yim
   link: https://github.com/elliotyim
-date: 2022-01-19 12:35:00 +0900
+date: 2022-01-19 19:04:00 +0900
 categories: ["알고리즘", "프로그래머스"]
 tags:
   [
