@@ -34,8 +34,8 @@ def solution(arr, sum_):
     answer = [-1]
     for i in range(len(arr)):
         for j in range(i+1, len(arr)):
-            if sum(arr[i:j+1]) == sum_:
-                answer.append(arr[i:j+1])
+            if sum(arr[i:j]) == sum_:
+                answer.append(arr[i:j])
     return sorted(answer, key=len)[-1]
 ```
 
