@@ -33,7 +33,7 @@ n(arr의 길이)이 한 1000 이하라면 아래와 같이 모든 부분 배열�
 def solution(arr, sum_):
     answer = [-1]
     for i in range(len(arr)):
-        for j in range(i, len(arr)):
+        for j in range(i+1, len(arr)):
             if sum(arr[i:j+1]) == sum_:
                 answer.append(arr[i:j+1])
     return sorted(answer, key=len)[-1]
