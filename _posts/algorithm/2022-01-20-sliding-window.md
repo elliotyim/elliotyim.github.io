@@ -19,7 +19,7 @@ LeetCode 문제를 풀다 보면 연습유형으로 굉장히 많이 보게 되�
 
 그 중에서도 subarray의 부분배열의 합에 대한 문제는 Sliding Window 알고리즘을 사용하기에 제격인데, 아주 명확하게 풀이가 된 곳([https://www.geeksforgeeks.org/find-subarray-with-given-sum/](https://www.geeksforgeeks.org/find-subarray-with-given-sum/))이 있어서 참고하면서 정리해봤다.
 
-## Brute Force O(n^2)
+## Brute Force
 
 아래와 같은 상황을 생각해보자.
 
@@ -43,7 +43,7 @@ n이 1000 이하일 경우 O(n^2)이니까 1,000,000번의 수행으로 끝나�
 
 여기서 사용되는 게 Sliding Window 알고리즘이다.
 
-## Sliding Window O(n)
+## Sliding Window
 
 나는 사실 슬라이딩 윈도우라고 하는 이름을 듣고 이 알고리즘이 어떻게 동작하는지 바로 떠올리기가 어려웠다. 오히려 이걸 앞뒤가 자유자재로 늘어나는 지렁이 한 마리가 배열 위를 기어가는걸 연상했다.
 
@@ -98,7 +98,7 @@ def solution2(arr, sum_):
         right += 1
 ```
 
-4, right가 전진하다보면 필요 이상으로 더할 때가 있다. 부분 배열의 합이 sum\_보다 높아지는 경우인데, 이 때는 left가 right의 바로 이전 위치로 올 때까지 체크하면서 기존에 구해뒀던 부분 합에서 하나씩 빼준다.
+4, right가 전진하다보면 필요 이상으로 더할 때가 있다. 부분 배열의 합이 `sum\_`보다 높아지는 경우인데, 이 때는 left가 right의 바로 이전 위치로 올 때까지 체크하면서 기존에 구해뒀던 부분 합에서 하나씩 빼준다.
 
 ```python
 def solution2(arr, sum_):
