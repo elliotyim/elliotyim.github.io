@@ -60,7 +60,7 @@ def solution(files):
     return answer
 ```
 
-그리고 아래가 바로 그 문제의 풀이다.
+그리고 아래가 바로 그 문제의 풀이다..
 
 ```python
 import re
