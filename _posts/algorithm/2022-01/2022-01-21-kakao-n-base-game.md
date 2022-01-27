@@ -10,7 +10,7 @@ tags: ["알고리즘", "프로그래머스", "2018", "카카오", "블라인드"
 
 ## Link
 
-- https://programmers.co.kr/learn/courses/30/lessons/17687
+- [https://programmers.co.kr/learn/courses/30/lessons/17687](https://programmers.co.kr/learn/courses/30/lessons/17687)
 
 ## Introduction
 

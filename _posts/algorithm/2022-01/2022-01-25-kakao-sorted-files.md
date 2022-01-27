@@ -19,7 +19,7 @@ tags:
 
 ## Link
 
-- https://programmers.co.kr/learn/courses/30/lessons/17686
+- [https://programmers.co.kr/learn/courses/30/lessons/17686](https://programmers.co.kr/learn/courses/30/lessons/17686)
 
 ## Introduction
 

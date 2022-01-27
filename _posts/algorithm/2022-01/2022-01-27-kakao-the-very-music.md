@@ -11,7 +11,7 @@ tags:
 
 ## Link
 
-- https://programmers.co.kr/learn/courses/30/lessons/17683
+- [https://programmers.co.kr/learn/courses/30/lessons/17683](https://programmers.co.kr/learn/courses/30/lessons/17683)
 
 ## Introduction
 
@@ -23,8 +23,8 @@ tags:
 
 ## Note
 
-- "ADEACC#BA#"과 같이 연결된 string을 순회할 때 `C# -> c`로 변환하는 등의 방법으로 문자를 한 인덱스로 셀 수 있도록 해야함.
-  - `"ADEACC#BA#"` -> "ADEACcBa"
+- `"ADEACC#BA#"`과 같이 연결된 string을 순회할 때 `C# -> c`로 변환하는 등의 방법으로 문자를 한 인덱스로 셀 수 있도록 해야함.
+  - `"ADEACC#BA#"` -> `"ADEACcBa"`
 
 ## Solution
 
