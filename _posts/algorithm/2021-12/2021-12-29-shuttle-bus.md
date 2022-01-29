@@ -1,5 +1,5 @@
 ---
-title: 2018 Kakao Blind Recruitment [1차] 셔틀버스
+title: 2018 KAKAO BLIND RECRUITMENT [1차] 셔틀버스
 author:
   name: Elliot Yim
   link: https://github.com/elliotyim
@@ -7,6 +7,10 @@ date: 2021-12-29 21:25:00 +0900
 categories: [알고리즘, 프로그래머스]
 tags: ["알고리즘", "프로그래머스", "2018", "카카오", "셔틀버스", "큐"]
 ---
+
+## Link
+
+- [https://programmers.co.kr/learn/courses/30/lessons/17678](https://programmers.co.kr/learn/courses/30/lessons/17678)
 
 ## Introduction
 
