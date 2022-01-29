@@ -8,13 +8,13 @@ categories: [알고리즘, 프로그래머스]
 tags: ["알고리즘", "프로그래머스", "2018", "카카오", "셔틀버스", "큐"]
 ---
 
+**Updated at 2022-01-29**
+
 ## Link
 
 - [https://programmers.co.kr/learn/courses/30/lessons/17678](https://programmers.co.kr/learn/courses/30/lessons/17678)
 
 ## Introduction
-
-**Updated at 2022-01-29**
 
 작년(2021년)에 포스팅 한 문제이긴 하지만 다시 봤을 때 한 눈에 안 들어와서 다시 풀어보기로 했다. 한 달 정도 지났지만 풀어나가는 스타일이 조금 바뀌기도 했고, 모든 코드에 스토리를 넣는 방식으로 풀어나가는 거라 이번에는 좀 더 시간이 지나고 봤을 때도 납득이 갈만한 풀이를 작성했다.
 
@@ -170,7 +170,7 @@ def solution(n, t, m, timetable):
     return format_time(dept_time)
 ```
 
----
+## Legacy
 
 지난 풀이. (코드는 더 간결한듯 보이지만 뭔가 시간이 지나고 다시 봤을 때 기억이 잘 안날정도로 와닿지가 않았다.)
 
