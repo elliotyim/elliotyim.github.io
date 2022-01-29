@@ -69,10 +69,10 @@ def solution(n, t, m, timetable):
 
     while n > 0:
         while i < len(timetable): # 2
-            lined_time = get_minute(timetable[i])
-            if lined_time > dept_time:
+            queued_time = get_minute(timetable[i])
+            if queued_time > dept_time:
                 break
-            queue.append(lined_time)
+            queue.append(queued_time)
             i += 1
 
         dept_time += t
@@ -104,15 +104,15 @@ def solution(n, t, m, timetable):
 
     while n > 0:
         while i < len(timetable):
-            lined_time = get_minute(timetable[i])
-            if lined_time > dept_time:
+            queued_time = get_minute(timetable[i])
+            if queued_time > dept_time:
                 break
-            queue.append(lined_time)
+            queue.append(queued_time)
             i += 1
 
         seats = m
         while seats > 0 and queue: # 3
-            lined_time = queue.popleft()
+            queued_time = queue.popleft()
             seats -= 1
 
         dept_time += t
@@ -146,17 +146,17 @@ def solution(n, t, m, timetable):
 
     while n > 0:
         while i < len(timetable):
-            lined_time = get_minute(timetable[i])
-            if lined_time > dept_time:
+            queued_time = get_minute(timetable[i])
+            if queued_time > dept_time:
                 break
-            queue.append(lined_time)
+            queue.append(queued_time)
             i += 1
 
         seats = m
         while seats > 0 and queue:
-            lined_time = queue.popleft()
+            queued_time = queue.popleft()
             if n == 1 and seats == 1: # 4
-                return format_time(lined_time - 1)
+                return format_time(queued_time - 1)
             seats -= 1
 
         dept_time += t
