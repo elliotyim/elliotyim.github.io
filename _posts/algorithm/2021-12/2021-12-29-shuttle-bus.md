@@ -224,3 +224,11 @@ def solution(n, t, m, timetable):
 
     return format_time(now)
 ```
+
+## Comment
+
+![BoredShibaInu](/assets/img/meme/BoredShibaInu.jpg){: width="50%" height="50%"}
+
+어려운 문제는 아닌데 문제가 길어서 풀기 전에 계속 멍 때렸다. 이러니까 시간 제한 있는 코딩테스트에서 맨날 시간 부족해서 못 풀지
+
+Level 3 치고는 쉽다. 2018년도 문제인데, 확실히 코딩 테스트는 해를 거듭할 수록 어려워지는 듯
