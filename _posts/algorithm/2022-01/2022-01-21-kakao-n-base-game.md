@@ -8,6 +8,8 @@ categories: ["알고리즘", "프로그래머스"]
 tags: ["알고리즘", "프로그래머스", "2018", "카카오", "블라인드", "큐"]
 ---
 
+**Updated at 2022-01-30**
+
 ## Link
 
 - [https://programmers.co.kr/learn/courses/30/lessons/17687](https://programmers.co.kr/learn/courses/30/lessons/17687)
@@ -37,6 +39,19 @@ tags: ["알고리즘", "프로그래머스", "2018", "카카오", "블라인드"
 
 ## Solution
 
+1, 순서대로 숫자를 말하는 상황을 재현하기 위해서 순서큐를 준비한다. 큐에는 m명의 사람들을 번호순으로 대기시킨다.
+
+```python
+from collections import deque
+
+def solution(n, t, m, p):
+    answer, order_queue = '', deque([i+1 for i in range(m)]) # 1
+```
+
+2, 게임을 진행하기 앞서 숫자를 n진수로 변환하는 함수를 준비한다.
+
+16진수까지 구한다는 조건이므로 10~15의 경우에는 각 숫자에 해당하는 알파벳으로 변환하여 만들어준다.
+
 ```python
 from collections import deque
 
@@ -50,29 +65,91 @@ NO_DIC = {
 }
 
 def convert_no(no, n):
-    nums, quotient = deque(), no
+    nums, quotient = '', no
     while quotient > 0:
         quotient, remainder = quotient // n, int(quotient % n)
         remainder = str(remainder) if remainder < 10 else NO_DIC[remainder]
-        nums.appendleft(remainder)
-    return nums
+        nums = remainder + nums
+    return nums if no > 0 else '0'
 
 def solution(n, t, m, p):
-    answer = ''
-    order_queue = deque([i+1 for i in range(m)])
+    answer, order_queue = '', deque([i+1 for i in range(m)])
+```
+
+3, 우선 가볍게 연습게임으로 혼자 진행해보자. 숫자는 0부터 시작하고 변환된 숫자를 계속해서 말하기만 하면 된다.
+
+총 t개의 숫자를 말할때까지 반복한다.
+
+```python
+from collections import deque
+
+NO_DIC = {
+    10: "A",
+    11: "B",
+    12: "C",
+    13: "D",
+    14: "E",
+    15: "F"
+}
+
+def convert_no(no, n):
+    nums, quotient = '', no
+    while quotient > 0:
+        quotient, remainder = quotient // n, int(quotient % n)
+        remainder = str(remainder) if remainder < 10 else NO_DIC[remainder]
+        nums = remainder + nums
+    return nums if no > 0 else '0'
+
+def solution(n, t, m, p):
+    answer, order_queue = '', deque([i+1 for i in range(m)])
+
+    no = 0
+    while len(answer) < t: # 3
+        converted_no = convert_no(no, n)
+        for number in converted_no:
+            if len(answer) == t:
+                break
+            answer += number
+        no += 1
+```
+
+4, 자 이제는 다 같이 진행한다.
+
+달라진 점은 이제 숫자를 내 차례일 때만 말하고 순서가 계속 로테이션 되는 것 밖에 없다.
+
+```python
+from collections import deque
+
+NO_DIC = {
+    10: "A",
+    11: "B",
+    12: "C",
+    13: "D",
+    14: "E",
+    15: "F"
+}
+
+def convert_no(no, n):
+    nums, quotient = '', no
+    while quotient > 0:
+        quotient, remainder = quotient // n, int(quotient % n)
+        remainder = str(remainder) if remainder < 10 else NO_DIC[remainder]
+        nums = remainder + nums
+    return nums if no > 0 else '0'
+
+def solution(n, t, m, p):
+    answer, order_queue = '', deque([i+1 for i in range(m)])
 
     no = 0
     while len(answer) < t:
-        nums = convert_no(no, n) if no > 0 else deque(['0'])
-        while nums and len(answer) < t:
-            converted_no = nums.popleft()
-            if order_queue[0] == p:
-                answer += converted_no
+        converted_no = convert_no(no, n)
+        for number in converted_no:
+            if len(answer) == t:
+                break
+            if order_queue[0] == p: # 4
+                answer += number
             order_queue.rotate(-1)
         no += 1
+
     return answer
 ```
-
-1. 순서큐를 만들어준다.
-2. 숫자를 0부터 시작해서 n진수로 변환한다. (맨 처음만 '0'을 그대로 쓴다.)
-3. 변환한 숫자를 체크하며 순번대로 부르고 순서큐를 한 칸씩 돌린다.
