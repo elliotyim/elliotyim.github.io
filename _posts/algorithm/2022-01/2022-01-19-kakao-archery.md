@@ -1,28 +1,247 @@
 ---
 title: 2022 KAKAO BLIND RECRUITMENT 양궁대회
-
 author:
   name: Elliot Yim
   link: https://github.com/elliotyim
 date: 2022-01-19 19:04:00 +0900
 categories: ["알고리즘", "프로그래머스"]
-tags:
-  [
-    "알고리즘",
-    "프로그래머스",
-    "2022",
-    "카카오",
-    "블라인드",
-    "완전탐색",
-    "백트래킹",
-  ]
+tags: ["알고리즘", "프로그래머스", "2022", "카카오", "블라인드", "완전탐색"]
 ---
+
+**Updated at 2022-01-30**
 
 ## Link
 
 - [https://programmers.co.kr/learn/courses/30/lessons/92342](https://programmers.co.kr/learn/courses/30/lessons/92342)
 
-## 잡담
+## Introduction
+
+이번에도 달라진 풀이 방법을 적용하여 다시 풀어본다. 아이디어는 똑같다.
+
+1. 화살을 가지고 큰 점수부터 점수판을 순회하며 쏠지 말지 결정한다.
+2. 점수 계산을 하고 의미 있는 점수면 수집한다.
+3. 점수판 중 가장 적게 맞춘 점수판을 골라 반환한다.
+
+## Note
+
+- n이 크지 않아 완전탐색으로 풀어도 충분하다.
+- 같은 득점 중에서도 적은 점수를 맞춘 결과를 선택할 것
+- 문제를 잘 읽읍시다.
+- 카카오 프렌즈의 캐릭터 이름은 **'lion'**이 아니라 **'ryan'** 입니다.
+
+## Solution
+
+1, info의 갯수 만큼(그래봐야 11개지만) 라이언을 위한 점수판을 마련한다.
+
+```python
+def solution(n, info):
+    i, ryan = 0, [0] * len(info) # 1
+```
+
+2, 음...일단 한번 무지성으로 가지고 있는 화살을 큰 점수부터 화살을 다 쓸 때까지 한 발씩 점수별로 쏴보자.
+
+여기서 shoot 함수의 base condition(함수의 탈출조건)은 과녁이 0점까지 도달했을 때(인덱스가 마지막일 때)와 화살이 다 떨어졌을 때이다.
+
+```python
+def shoot(i, arrows, ryan, apeach):
+    if i == len(ryan)-1 or arrows == 0:
+        return
+    shoot(i+1, arrows-1, ryan, apeach)
+
+def solution(n, info):
+    i, ryan = 0, [0 for _ in info]
+    shoot(i, n, ryan, info) # 2
+```
+
+3, 쏘는 건 구현했으니 마구잡이로 쏘는게 아니라 좀 더 현명하게 과녁별로 순회를 하면서 쏠지 말지를 결정하면서 쏴보자.
+
+갖고 있는 화살이 0개 보다 많고, 어피치가 쏜 화살보다 1개 이상 많으면 쏜다.
+
+쏘고 나니 마음에 안드는 경우 방금 쏜 화살을 다시 회수(ryan[i] = 0)하고 해당 과녁은 지나간다.
+
+![도르마무](/assets/img/meme/dormammu.jpg)
+
+```python
+def shoot(i, arrows, ryan, apeach):
+    if i == len(ryan)-1 or arrows == 0:
+        return
+
+    # 과녁을 향해 쏘세요!
+    if arrows > 0 and arrows >= apeach[i]+1: # 3
+        ryan[i] = apeach[i]+1
+        shoot(i+1, arrows-(apeach[i]+1), ryan, apeach)
+        ryan[i] = 0
+
+    # 안 쏘거나 위에서 못 쐈을 때 이 과녁은 그냥 지나간다.
+    shoot(i+1, arrows, ryan, apeach)
+
+def solution(n, info):
+    i, ryan = 0, [0 for _ in info]
+    shoot(i, n, ryan, info)
+```
+
+4, 점수판(ryan_board)을 찍어보자. 어 그런데 점수판 목록을 보니 뭔가가 이상하다.
+
+```
+...
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+...
+```
+
+쏴도 되고 안 쏴도 된다고 하니까 화살 10개를 줬는데도 한 번도 안 쏘고 10개를 계속 가지고 있다. 아직은 쏠 때가 아니라나 뭐라나
+
+...뺏어서 지금 과녁에 남은 화살 다 쏴버렸다.
+
+```python
+def shoot(i, arrows, ryan, apeach):
+    if i == len(ryan)-1 or arrows == 0:
+        ryan_board = [_ for _ in ryan]
+        ryan_board[i] += arrows # 4
+        return
+
+    if arrows > 0 and arrows >= apeach[i]+1:
+        ryan[i] = apeach[i]+1
+        shoot(i+1, arrows-(apeach[i]+1), ryan, apeach)
+        ryan[i] = 0
+
+    shoot(i+1, arrows, ryan, apeach)
+
+def solution(n, info):
+    i, ryan = 0, [0 for _ in info]
+    shoot(i, n, ryan, info)
+```
+
+5, 이제 점수 계산을 하기 위해 점수판을 넣어주면서 점수차를 반환하는 함수를 구현하고 점수차를 구해보자.
+
+```python
+SCORE_TABLE = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+
+def get_score(ryan, apeach):
+    score = 0
+    for i in range(len(ryan)):
+        if ryan[i] > apeach[i]:
+            score += SCORE_TABLE[i]
+        elif ryan[i] < apeach[i]:
+            score -= SCORE_TABLE[i]
+    return score
+
+def shoot(i, arrows, ryan, apeach):
+    if i == len(ryan)-1 or arrows == 0:
+        ryan_board = [_ for _ in ryan]
+        ryan_board[i] += arrows
+        score = get_score(ryan_board, apeach) # 5
+        return
+
+    if arrows > 0 and arrows >= apeach[i]+1:
+        ryan[i] = apeach[i]+1
+        shoot(i+1, arrows-(apeach[i]+1), ryan, apeach)
+        ryan[i] = 0
+
+    shoot(i+1, arrows, ryan, apeach)
+
+def solution(n, info):
+    i, ryan = 0, [0 for _ in info]
+    shoot(i, n, ryan, info)
+```
+
+6, 최고 점수를 갱신한 점수판들만 정답리스트에 모아 넣는다.
+체크하는 기준은 아래와 같다. (최고점수의 초기값은 0)
+
+1. 점수가 0보다 크면서 점수가 최고점수와 같은가?
+2. 최고점수보다 높은가?
+
+```python
+SCORE_TABLE = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+
+answer = []
+max_score = 0
+
+def get_score(ryan, apeach):
+    score = 0
+    for i in range(len(ryan)):
+        if ryan[i] > apeach[i]:
+            score += SCORE_TABLE[i]
+        elif ryan[i] < apeach[i]:
+            score -= SCORE_TABLE[i]
+    return score
+
+def shoot(i, arrows, ryan, apeach):
+    global max_score
+    if i == len(ryan)-1 or arrows == 0:
+        ryan_board = [_ for _ in ryan]
+        ryan_board[i] += arrows
+        score = get_score(ryan_board, apeach)
+
+        if 0 < score and score == max_score: # 6
+            answer.append(ryan_board)
+        elif score > max_score:
+            max_score = score
+            answer.clear()
+            answer.append(ryan_board)
+        return
+
+    if arrows > 0 and arrows >= apeach[i]+1:
+        ryan[i] = apeach[i]+1
+        shoot(i+1, arrows-ryan[i], ryan, apeach)
+        ryan[i] = 0
+
+    shoot(i+1, arrows, ryan, apeach)
+
+def solution(n, info):
+    i, ryan = 0, [0 for _ in info]
+    shoot(i, n, ryan, info)
+```
+
+7, 마지막으로 정답리스트 중에 가장 적은 과녁에 많이 맞힌 점수판을 골라 반환한다.
+
+이를 위해 정답 리스트에 값을 넣을 때 점수판 배열을 뒤집어서 넣어주는 걸로 수정하고([::-1] 연산) 정답을 반환할 때 정답리스트를 정렬한 뒤 가장 마지막에 위치한 점수판을 다시 원래대로 뒤집어서 반환한다.
+
+뒤집은 점수판은 앞에서부터(0점 과녁부터) 숫자가 적은 순서대로 정렬될 것이고, 그 말은 정렬되고 난 뒤집힌 점수판 중에 가장 뒤에 위치하는 녀석들은 앞에서부터 숫자가 큰 녀석들만 들어간 상태로 배치된다는 것이다.
+
+```python
+SCORE_TABLE = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+
+answer = []
+max_score = 0
+
+def get_score(ryan, apeach):
+    score = 0
+    for i in range(len(ryan)):
+        if ryan[i] > apeach[i]:
+            score += SCORE_TABLE[i]
+        elif ryan[i] < apeach[i]:
+            score -= SCORE_TABLE[i]
+    return score
+
+def shoot(i, arrows, ryan, apeach):
+    global max_score
+    if i == len(ryan)-1 or arrows == 0:
+        ryan_board = [_ for _ in ryan]
+        ryan_board[i] += arrows
+        score = get_score(ryan_board, apeach)
+
+        if 0 < score and score == max_score:
+            answer.append(ryan_board[::-1]) # 7
+        elif score > max_score:
+            max_score = score
+            answer.clear()
+            answer.append(ryan_board[::-1]) # 7
+        return
+
+    if arrows > 0 and arrows >= apeach[i]+1:
+        ryan[i] = apeach[i]+1
+        shoot(i+1, arrows-ryan[i], ryan, apeach)
+        ryan[i] = 0
+
+    shoot(i+1, arrows, ryan, apeach)
+
+def solution(n, info):
+    i, ryan = 0, [0 for _ in info]
+    shoot(i, n, ryan, info)
+    return sorted(answer)[-1][::-1] if answer else [-1] # 7
+```
+
+## Legacy
 
 다 풀었는데 자꾸 테스트 케이스 8번과 18번이 통과가 안되서 삽질을 엄청 했다.
 
@@ -126,14 +345,7 @@ _수행시간 편차가 엄청 크다_
 
 근데 이상하게 수행시간도 엄청 길고 answer에도 같은 값이 6개씩 들어가 있고 뭔가 구현이 이상한 것 같아 결국 인터넷에서 다른 사람의 풀이를 참고해서 index를 늘려가며 탐색하는 방식으로 다시 풀었다.
 
-## Note
-
-- n이 크지 않아 완전탐색으로 풀어도 충분하다.
-- 같은 득점 중에서도 적은 점수를 맞춘 결과를 선택할 것
-- 문제를 잘 읽읍시다.
-- 카카오 프렌즈의 캐릭터 이름은 **'lion'**이 아니라 **'ryan'** 입니다.
-
-## 풀이
+---
 
 ```python
 score_table = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
