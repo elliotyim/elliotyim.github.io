@@ -45,14 +45,18 @@ tags:
 
 ## Solution
 
-1, 필요한 변수들과 사전(dictionary)을 준비해둔다. 사전에는 미리 알파벳에 인덱스를 붙인 값을 넣어서 준비한다. ex) dic[A] = 1
+1, 필요한 변수들과 사전(dictionary)을 준비해둔다. 사전에는 미리 알파벳에 인덱스를 붙인 값을 넣어서 준비한다.
+
+> ex) word_dic[word] = 12
+
+알파벳은 총 26글자 이므로 다음 인덱스는 27로 미리 세팅해 놓는다.
 
 ```python
 WORD_TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 def solution(msg):
     answer, index = [], 27
-    word_dic = {word:i+1 for i, word in enumerate(WORD_TABLE)}
+    word_dic = {word:i+1 for i, word in enumerate(WORD_TABLE)} # 1
 ```
 
 2, 포인터를 두 개 두고 right를 끝까지 움직이도록 한다.
