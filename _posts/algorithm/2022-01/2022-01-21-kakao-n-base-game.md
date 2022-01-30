@@ -66,7 +66,8 @@ def solution(n, t, m, p):
         nums = convert_no(no, n) if no > 0 else deque(['0'])
         while nums and len(answer) < t:
             converted_no = nums.popleft()
-            answer += converted_no if order_queue[0] == p else ''
+            if order_queue[0] == p:
+                answer += converted_no
             order_queue.rotate(-1)
         no += 1
     return answer
