@@ -68,6 +68,8 @@ def solution(msg):
 
 ---
 
+**풀이**
+
 1, 필요한 변수들과 사전(dictionary)을 준비해둔다. 사전에는 미리 알파벳에 인덱스를 붙인 값을 넣어서 준비한다.
 
 > ex) word_dic[word] = 12
