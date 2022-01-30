@@ -48,13 +48,13 @@ import re, heapq
 def solution(files):
     answer, heap = [], []
 
-    for i, file in enumerate(files):
+    for i, file in enumerate(files): # 1
         split_file = file.split('.')[0]
         head, no = re.findall('^([A-z\-\s]+)(\d+)', split_file)[0]
         head, no = head.lower(), int(no)
         heapq.heappush(heap, [head, no, i, file])
 
-    while heap:
+    while heap: # 2
         answer.append(heapq.heappop(heap)[3])
 
     return answer
