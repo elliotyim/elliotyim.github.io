@@ -28,6 +28,48 @@ tags: ["알고리즘", "프로그래머스", "2018", "카카오", "셔틀버스"
 
 ## Solution
 
+```python
+from collections import deque
+
+def get_minute(time):
+    h, m = time.split(':')
+    return 60 * int(h) + int(m)
+
+def add_leading_zero(no):
+    return str(no) if no > 9 else f'0{no}'
+
+def format_time(time):
+    h, m = time // 60, time % 60
+    return f'{add_leading_zero(h)}:{add_leading_zero(m)}'
+
+def solution(n, t, m, timetable):
+    i, dept_time, queue = 0, 9 * 60, deque()
+    timetable.sort()
+
+    while n > 0:
+        while i < len(timetable):
+            queued_time = get_minute(timetable[i])
+            if queued_time > dept_time:
+                break
+            queue.append(queued_time)
+            i += 1
+
+        seats = m
+        while seats > 0 and queue:
+            queued_time = queue.popleft()
+            if n == 1 and seats == 1:
+                return format_time(queued_time - 1)
+            seats -= 1
+
+        dept_time += t
+        n -= 1
+
+    dept_time -= t
+    return format_time(dept_time)
+```
+
+---
+
 1, n개의 버스가 정류장에 도착하고 떠나는 것을 구현한다. 이 버스들은 9시(540분)에 처음으로 출발하여 t분 간격으로 정류장에 도착하고 떠난다. 마지막엔 막차 시간을 반환한다.
 
 ```python

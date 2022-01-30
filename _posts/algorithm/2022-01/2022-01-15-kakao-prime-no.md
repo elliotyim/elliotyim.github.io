@@ -37,6 +37,52 @@ tags:
 
 ## Solution
 
+```python
+import math
+from collections import deque
+
+def convert_no(n, k):
+    nums, quotient = deque(), n
+    while quotient > 0:
+        quotient, remainder = quotient // k, int(quotient % k)
+        nums.appendleft(str(remainder))
+    return ''.join(nums)
+
+def is_prime_no(no):
+    if no < 2:
+        return False
+
+    offset = int(math.sqrt(no)) + 1
+    for i in range(2, offset):
+        if no % i == 0:
+            return False
+    return True
+
+def contain_zero(no):
+    return True if '0' in str(no) else False
+
+def solution(n, k):
+    answer = 0
+    no = convert_no(n, k)
+    left, right = 0, 0
+
+    while right < len(no):
+        if no[right] == '0':
+            cur_no = int(no[left:right])
+            if is_prime_no(cur_no) and not contain_zero(cur_no):
+                answer += 1
+            left = right = right + 1
+
+        if right == len(no) - 1: # 5
+            cur_no = int(no[left:])
+            if is_prime_no(cur_no) and not contain_zero(cur_no):
+                answer += 1
+        right += 1
+    return answer
+```
+
+---
+
 1, 어떤 수의 k진수를 구하는 법은 그 수를 k로 나누며 0이 될 때까지 나누고 나머지를 이어주면 된다.
 
 ex) 35를 2진수로 표현하는 방법
@@ -44,8 +90,6 @@ ex) 35를 2진수로 표현하는 방법
 ![35](/assets/img/algorithm/programmers/kakao/35-k-base.jpg){: width="50%" height="50%"}
 
 35 ---2진수로 변환---> 100011(2)
-
----
 
 이를 구현한다.
 

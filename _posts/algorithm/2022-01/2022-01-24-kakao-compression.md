@@ -45,6 +45,29 @@ tags:
 
 ## Solution
 
+```python
+WORD_TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+def solution(msg):
+    answer, index = [], 27
+    word_dic = {word:i+1 for i, word in enumerate(WORD_TABLE)}
+
+    left, right = 0, 1
+    while right <= len(msg):
+        word, next_word = msg[left:right], msg[left:right+1]
+        if word in word_dic and next_word not in word_dic:
+            answer.append(word_dic[word])
+            word_dic[next_word] = index
+            index += 1
+            left = right
+        right += 1
+
+    answer.append(word_dic[msg[left:]])
+    return answer
+```
+
+---
+
 1, 필요한 변수들과 사전(dictionary)을 준비해둔다. 사전에는 미리 알파벳에 인덱스를 붙인 값을 넣어서 준비한다.
 
 > ex) word_dic[word] = 12

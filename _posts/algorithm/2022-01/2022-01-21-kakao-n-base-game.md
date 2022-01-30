@@ -39,6 +39,45 @@ tags: ["알고리즘", "프로그래머스", "2018", "카카오", "블라인드"
 
 ## Solution
 
+```python
+from collections import deque
+
+NO_DIC = {
+    10: "A",
+    11: "B",
+    12: "C",
+    13: "D",
+    14: "E",
+    15: "F"
+}
+
+def convert_no(no, n):
+    nums, quotient = '', no
+    while quotient > 0:
+        quotient, remainder = quotient // n, int(quotient % n)
+        remainder = str(remainder) if remainder < 10 else NO_DIC[remainder]
+        nums = remainder + nums
+    return nums if no > 0 else '0'
+
+def solution(n, t, m, p):
+    answer, order_queue = '', deque([i+1 for i in range(m)])
+
+    no = 0
+    while len(answer) < t:
+        converted_no = convert_no(no, n)
+        for number in converted_no:
+            if len(answer) == t:
+                break
+            if order_queue[0] == p: # 4
+                answer += number
+            order_queue.rotate(-1)
+        no += 1
+
+    return answer
+```
+
+---
+
 1, 순서대로 숫자를 말하는 상황을 재현하기 위해서 순서큐를 준비한다. 큐에는 m명의 사람들을 번호순으로 대기시킨다.
 
 ```python

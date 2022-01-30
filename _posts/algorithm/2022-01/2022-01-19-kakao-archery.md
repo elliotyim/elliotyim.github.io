@@ -31,6 +31,51 @@ tags: ["알고리즘", "프로그래머스", "2022", "카카오", "블라인드"
 
 ## Solution
 
+```python
+SCORE_TABLE = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+
+answer = []
+max_score = 0
+
+def get_score(ryan, apeach):
+    score = 0
+    for i in range(len(ryan)):
+        if ryan[i] > apeach[i]:
+            score += SCORE_TABLE[i]
+        elif ryan[i] < apeach[i]:
+            score -= SCORE_TABLE[i]
+    return score
+
+def shoot(i, arrows, ryan, apeach):
+    global max_score
+    if i == len(ryan)-1 or arrows == 0:
+        ryan_board = [_ for _ in ryan]
+        ryan_board[i] += arrows
+        score = get_score(ryan_board, apeach)
+
+        if 0 < score and score == max_score:
+            answer.append(ryan_board[::-1]) # 7
+        elif score > max_score:
+            max_score = score
+            answer.clear()
+            answer.append(ryan_board[::-1]) # 7
+        return
+
+    if arrows > 0 and arrows >= apeach[i]+1:
+        ryan[i] = apeach[i]+1
+        shoot(i+1, arrows-ryan[i], ryan, apeach)
+        ryan[i] = 0
+
+    shoot(i+1, arrows, ryan, apeach)
+
+def solution(n, info):
+    i, ryan = 0, [0 for _ in info]
+    shoot(i, n, ryan, info)
+    return sorted(answer)[-1][::-1] if answer else [-1] # 7
+```
+
+---
+
 1, info의 갯수 만큼(그래봐야 11개지만) 라이언을 위한 점수판을 마련한다.
 
 ```python
