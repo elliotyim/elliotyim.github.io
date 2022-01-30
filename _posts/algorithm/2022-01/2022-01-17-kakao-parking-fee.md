@@ -6,14 +6,14 @@ author:
   link: https://github.com/elliotyim
 date: 2022-01-17 12:35:00 +0900
 categories: ["알고리즘", "프로그래머스"]
-tags: ["알고리즘", "프로그래머스", "2022", "카카오", "블라인드", "시뮬레이션"]
+tags: ["알고리즘", "프로그래머스", "2022", "카카오", "블라인드"]
 ---
 
 ## Note
 
 - 문제에 적혀 있는대로 풀면 된다.
 
-## 풀이
+## Solution
 
 1. 입차시간과 출차시간을 계산해서 차량별로 누적시간을 계산해둔다.
 2. 입차만 하고 출차를 하지 않은 차량이 남아있으면 이 차량을 23시 59분에 출차한 것으로 요금을 계산한다.
@@ -30,7 +30,7 @@ def to_minute_time(time):
 def solution(fees, records):
     answer, park_dic, acc_time_dic = [], dict(), defaultdict(int)
 
-    for record in records:
+    for record in records: # 1
         time, no, action = record.split()
         time = to_minute_time(time)
         if action == 'IN':
@@ -38,20 +38,20 @@ def solution(fees, records):
         elif action == 'OUT':
             acc_time_dic[no] += time - park_dic.pop(no)
 
-    close_time = 23 * 60 + 59
+    close_time = 23 * 60 + 59 # 2
     for no, time in park_dic.items():
         acc_time_dic[no] += close_time - time
 
-    for no, time in acc_time_dic.items():
+    for no, time in acc_time_dic.items(): # 3
         fee = fees[1]
         if time >= fees[0]:
             fee += math.ceil((time-fees[0]) / fees[2]) * fees[3]
         answer.append((no, fee))
 
-    return [time for (no, time) in sorted(answer)]
+    return [fee for no, fee in sorted(answer)]
 ```
 
-## 잡담
+## Comment
 
 알고리즘 코테를 준비하는 사람 중에 이 문제를 못 푸는 사람은 거의 없을 것 같다. 어려운 문제도 아니고 문제에 풀이방법이 아예 써 있으니까
 
