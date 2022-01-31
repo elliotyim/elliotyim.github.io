@@ -3,7 +3,7 @@ title: [프로그래머스] 가장 큰 정사각형 찾기
 author:
   name: Elliot Yim
   link: https://github.com/elliotyim
-date: 2022-01-31 23:17:00 +0900
+date: 2022-01-31 19:49:00 +0900
 categories: ["알고리즘", "프로그래머스"]
 tags:
   ["알고리즘", "프로그래머스", "2019", "카카오","정규표현식"]
