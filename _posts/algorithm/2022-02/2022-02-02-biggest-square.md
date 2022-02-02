@@ -85,13 +85,13 @@ def solution(board):
 
 우선 진하게 색칠된 사각형을 기준으로, 이 사각형의 숫자가 1이기 위해서는 왼쪽과 왼쪽위 사각형의 숫자가 몇이어야 할까?
 
-어느쪽이든 하나는 값이 0이어야 한다. 둘 다 1 이상이면 현재 진하게 칠해진 사각형의 숫자는 2 이상이 될 수 밖에 없기 때문이다.
+어느쪽이든 하나는 값이 0이어야 한다. 둘 다 1 이상이면 단위 사각형이 완성되어버려 진하게 칠해진 숫자가 2가 될 수 밖에 없기 때문이다.
 
-또한, 숫자가 3인 사각형 옆의 사각형은 무조건 1이상이다. 안그러면 숫자 3이 나올 수가 없기 때문이다. 따라서 위 그림과 같이 1과 0을 적어둔다.
+또한, 숫자가 3인 사각형 옆의 사각형은 무조건 1 이상이다. 그렇지 않으면 단위 사각형이 완성되지 않기 때문이다. 따라서 위 그림과 같이 1과 0을 적어둔다.
 
 ![squares4](/assets/img/algorithm/programmers/practice/biggest-square/5.png)
 
-다음은 숫자가 2인 사각형을 보자. 이 사각형은 알기 쉽다. 3방향(왼쪽, 위쪽, 왼쪽위) 모두 숫자가 1이면 된다. 일단 1로 적어두고 다음으로 넘어간다.
+다음은 숫자가 2인 사각형을 보자. 이 사각형은 알기 쉽다. 3방향(왼쪽, 위쪽, 왼쪽위) 모두 숫자가 1 이상이면 된다. 일단 1로 적어두고 다음으로 넘어간다.
 
 ![squares4](/assets/img/algorithm/programmers/practice/biggest-square/6.png)
 
@@ -99,7 +99,7 @@ def solution(board):
 
 ![squares4](/assets/img/algorithm/programmers/practice/biggest-square/7.png)
 
-가만보니 숫자가 모두 1은 아니다. 숫자가 2이어야 하는 부분은 숫자를 갱신해준다.
+다시 체크해보니 숫자가 모두 1은 아니다. 숫자가 2이어야 하는 부분은 숫자를 갱신해준다.
 
 ![squares4](/assets/img/algorithm/programmers/practice/biggest-square/8.png)
 
@@ -111,11 +111,11 @@ def solution(board):
 
 ![squares4](/assets/img/algorithm/programmers/practice/biggest-square/10.png)
 
-표를 완성해놓고보니 공통점을 발견할 수 있다. 어떤 사각형의 숫자는 `3방향(왼쪽, 위쪽, 왼쪽위)의 사각형들의 숫자 중 가장 작은 것 + 1`이라는 점이다. 따라서 ?에 들어갈 숫자는 2이다.
+표를 완성해놓고보니 공통점을 발견할 수 있다. 어떤 사각형의 숫자가 1 이상이라면 그 숫자는 `3방향(왼쪽, 위쪽, 왼쪽위)의 사각형들의 숫자 중 가장 작은 것 + 1`이라는 점이다. 따라서 ?에 들어갈 숫자는 2이다.
 
 ![squares4](/assets/img/algorithm/programmers/practice/biggest-square/11.png)
 
-그리고 표에서 숫자가 0 이상인 사각형들을 다 칠해보면 더 명확하게 알 수 있다.
+그리고 표에서 숫자가 1 이상인 사각형들을 다 칠해보면 더 명확하게 알 수 있다.
 
 이 사실을 참고하여 숫자를 체크하는 부분을 코드로 구현해 보자.
 
