@@ -111,7 +111,7 @@ def solution(board):
 
 ![squares4](/assets/img/algorithm/programmers/practice/biggest-square/10.png)
 
-표를 완성해놓고보니 공통점을 발견할 수 있다. 어떤 사각형의 숫자가 1 이상이라면 그 숫자는 `3방향(왼쪽, 위쪽, 왼쪽위)의 사각형들의 숫자 중 가장 작은 것 + 1`이라는 점이다. 따라서 ?에 들어갈 숫자는 2이다.
+표를 완성해놓고보니 규칙을 발견할 수 있다. 어떤 사각형의 숫자가 1 이상이라면 그 숫자는 `3방향(왼쪽, 위쪽, 왼쪽위)의 사각형들의 숫자 중 가장 작은 것 + 1`이라는 점이다. 따라서 ?에 들어갈 숫자는 2이다.
 
 ![squares4](/assets/img/algorithm/programmers/practice/biggest-square/11.png)
 
