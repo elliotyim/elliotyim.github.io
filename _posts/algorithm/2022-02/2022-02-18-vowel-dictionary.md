@@ -146,7 +146,7 @@ def solution(word):
 
 ### 3. 함수 구현
 
-우선 파라미터로 받은 문자를 한 단계 올려주는 change_up부터 살펴보자.
+우선 파라미터로 받은 문자를 한 단계 올려주는 change_up()부터 살펴보자.
 
 이건 간단하다. 테이블을 하나 만들어 두고 받은 문자의 다음 인덱스의 문자를 반환하면 된다.
 
@@ -265,7 +265,7 @@ a = 1, r = 5 일 때,
 An = a + r^(n-1)
 ```
 
-각각의 증가분은 등비수열의 합이다. 등비수열의 합 공식은 아래와 같다.
+각각의 증가치는 등비수열의 합이다. 등비수열의 합 공식은 아래와 같다.
 
 ![등비수열의 합](/assets/img/algorithm/programmers/practice/vowel-dictionary/sum_of_geometric_sequence.png)
 
