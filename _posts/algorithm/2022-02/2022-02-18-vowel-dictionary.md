@@ -292,7 +292,7 @@ I는 A->E->I로 2번 바꾸므로 312,
 O는 A->E->I->O로 3번 바꾸므로 93
 ```
 
-자릿수별로 등비수열의 합을 구한 다음에 아래의 인덱스를 곱해주면 된다.
+정리하자면, 자릿수별로 등비수열의 합을 구한 다음에 아래의 인덱스를 곱해주면 된다.
 
 ```
 AEIOU
@@ -312,12 +312,12 @@ AEIOU
 > n = r - i
 
 ```python
-WORDS = "AEIOU"
+WORD_TABLE = "AEIOU"
 
 def solution(word):
     answer, r = 0, 5
     for i, w in enumerate(word):
-        a = WORDS.index(w)
+        a = WORD_TABLE.index(w)
         n = r - i
         answer += a * ((r ** n - 1) / (r - 1)) + 1
     return answer
@@ -333,4 +333,4 @@ def solution(word):
 
 수학을 적용한 풀이는 안 정리하고 넘어갈까 하다가 정리했는데 생각보다 시간이 많이 걸렸다;;
 
-하지만 수학의 중요성을 다시금 되새기기 위해서라도 정리했어야 됐으니까 뭐 괜찮나...?
+하지만 수학의 중요성을 다시금 되새기기 위해서라도 정리했어야 됐으니까 뭐...괜찮나?
