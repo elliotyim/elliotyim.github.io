@@ -207,7 +207,19 @@ def carry_over(word):
 
 ---
 
-**수학을 적용한 풀이**
+### 번외. 수학을 적용한 풀이
+
+```python
+WORD_TABLE = "AEIOU"
+
+def solution(word):
+    answer, r = 0, 5
+    for i, w in enumerate(word):
+        a = WORD_TABLE.index(w)
+        n = r - i
+        answer += a * ((r ** n - 1) / (r - 1)) + 1
+    return answer
+```
 
 ~~정리 안 하려고 하다가 그건 좀 아닌 것 같아서 업데이트 했다.~~
 
