@@ -112,7 +112,7 @@ def solution(n,a,b):
 
 대결 후 무조건 이긴다고 가정했을 때 두 사람이 다음 라운드에서 같은 번호를 가지고 있으면 된다.
 
-![tornament](/assets/img/algorithm/programmers/practice/tournament-table/tournament001.jpg)
+![tournament](/assets/img/algorithm/programmers/practice/tournament-table/tournament001.jpg)
 _4번과 5번은 번호 차이가 1이지만 대결하지 않는다_
 
 ```python
