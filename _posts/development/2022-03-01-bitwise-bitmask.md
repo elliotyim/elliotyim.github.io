@@ -46,16 +46,14 @@ Bitmask는 쉽게 말해 숫자를 이진수로 바꿨을 때 나오는 각각�
 예를 들어, 숫자 8의 경우 이진수 1000(2)로 표현할 수 있는데, 이는 스위치 4개를 가지고 있으면서 1번째 스위치 하나만 켜지고 나머지 3개의 스위치가 꺼졌다고 보면 된다.
 
 ![RGB Bitmask](/assets/img/development/bitwise-bitmask/bit-rgb.png)
-_Bitmask를 이용하여 RGB 값을 저장하고 추출_
+_Bitmask를 이용하여 RGB 값을 저장 및 추출_
 
-이를 통해 최대한 지연시간 없이 실시간으로 엄청나게 많은 연산이 필요한 모니터의 RGB 색상값 표현, 키보드나 마우스, 게임패드의 동시 입력 저장 등에 사용된다.
-
-나의 경우 클라이언트 PC의 웹 브라우저로 서버의 컴퓨터를 원격 조종할 수 있는 어플리케이션을 개발할 때 처음 써봤다.
+이를 통해 최대한 지연시간이 적어야 하면서 실시간으로 엄청나게 많은 연산이 필요한 모니터의 RGB 색상값을 표현한다.
 
 ![SDL 2.0](/assets/img/development/bitwise-bitmask/sdl-keycode.png)
 _[SDL 2.0 키보드의 키코드 헤더 파일](https://github.com/libsdl-org/SDL/blob/main/include/SDL_keycode.h)_
 
-서버쪽 어플리케이션은 SDL(Simple Directmedia Layer)이라는 라이브러리를 사용하여 키보드, 마우스 조작 등을 하였는데, 조합키(modifier)등의 경우 여러 키가 동시에 같이 눌리는 것을 판단하기 위해 Bitmask를 사용한다.
+또 다른 경우로는 동시에 입력값을 기억하고 처리해야 하는 키보드 조합키(modifier), 조이패드 버튼 키코드 등에 Bitmask를 사용한다.
 
 ## Basic Operation
 
