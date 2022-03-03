@@ -75,6 +75,8 @@ def solution(numbers):
 
 그럼 홀수의 경우는 어떨까? 대충 151이라는 숫자를 가져와 본다. 이 숫자를 이진수로 바꾸면 아래와 같은 느낌이다. (절대로 뮤 스티커 안 나와서 이러는거 아님)
 
+![pokemon-bread](/assets/img/algorithm/programmers/practice/two-different-bits/pokemon-bread.jpg)
+
 ```
 151 -> 10010111 (2)
 ```
