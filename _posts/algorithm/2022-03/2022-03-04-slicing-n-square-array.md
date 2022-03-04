@@ -87,7 +87,7 @@ def solution(n, left, right):
 
 오잉? 시간초과가 난다. 이상해서 문제를 다시 보니 n이 천만......
 
-![time out](/assets/img/algorithm/programmers/practice/slicing-n-square-array/time-out.png)
+![time out](/assets/img/algorithm/programmers/practice/slicing-n-square-array/timeout.png)
 
 ### 2. Fun하고 Cool하고 Sexy하게 풀기
 
