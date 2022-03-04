@@ -78,7 +78,7 @@ def solution(n, left, right):
         for x in range(n):
             no = x + n * y
             if right < no:
-                break
+                return answer
             elif left <= no <= right:
                 value = max(x, y) + 1
                 answer.append(value)
