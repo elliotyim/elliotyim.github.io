@@ -69,8 +69,7 @@ _y가 몇 층인지, x가 몇 번째인지라고 생각하면 된다._
 따라서 번호의 넘버링은 x + n\*y로 계산할 수 있다. 이걸 적용해주자.
 
 1. 이 숫자가 right를 넘어가면 더 이상 체크할 필요가 없으므로 순회를 종료한다.
-2. 현재 넘버링이 left와 right 사이에 있지 않을 때는 넘어간다.
-3. 나머지 경우는 현재 배열의 값을 정답 리스트에 넣어준다.
+2. 현재 넘버링이 left와 right 사이에 있으면 정답에 추가한다.
 
 ```python
 def solution(n, left, right):
@@ -79,10 +78,8 @@ def solution(n, left, right):
         for x in range(n):
             no = x + n * y
             if right < no:
-                return answer
-            elif not left <= no <= right:
-                continue
-            else:
+                break
+            elif left <= no <= right:
                 value = max(x, y) + 1
                 answer.append(value)
     return answer
