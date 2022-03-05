@@ -27,7 +27,7 @@ tags: ["알고리즘", "프로그래머스", "월간 코드 챌린지"]
 
 ```python
 def solution(n, left, right):
-    return [max(no//n, no%n)+1 for no in range(int(left), int(right)+1)]
+    return [max(no%n, no//n)+1 for no in range(int(left), int(right)+1)]
 ```
 
 ### 1. Brute Force
@@ -61,10 +61,10 @@ def solution(n, left, right):
 
 넘버링을 하는 규칙은 y의 인덱스가 하나 올라갈 때마다 n씩 값이 더해지고 거기에 x의 값을 더하면 된다.
 
-![array](/assets/img/algorithm/programmers/practice/slicing-n-square-array/array.png)
-
 ![array2](/assets/img/algorithm/programmers/practice/slicing-n-square-array/array2.png)
-_y가 몇 층인지, x가 몇 번째인지라고 생각하면 된다._
+
+![array](/assets/img/algorithm/programmers/practice/slicing-n-square-array/array.png)
+_y가 몇 층인지, x가 몇 번째인지 생각하면 된다._
 
 따라서 번호의 넘버링은 x + n\*y로 계산할 수 있다. 이걸 적용해주자.
 
@@ -91,7 +91,7 @@ def solution(n, left, right):
 
 ### 2. Fun하고 Cool하고 Sexy하게 풀기
 
-1번의 풀이의 경우 O(n) 처럼 보이지만 사실 if문을 체크하기 위해 `no = x + n * y`라는 연산을 한 번 더 하기 때문에 더 느리다.
+1번의 풀이의 경우 if문을 체크하기 위해 `no = x + n * y`라는 연산을 한 번 더 하기 때문에 예상했던 것 보다는 좀 더 느리다.
 
 아까 현재 위치의 값을 구하는 방법은 x나 y중 큰 수 + 1이라고 했는데, 넘버링된 숫자로도 비슷하게 구할 수 있을까?
 
@@ -109,7 +109,7 @@ y의 경우 3번에 한 번씩 값이 올라간다. 즉, `y = no // n`인 것을
 
 ```python
 def solution(n, left, right):
-    return [max(no//n, no%n)+1 for no in range(left, right+1)]
+    return [max(no%n, no//n)+1 for no in range(left, right+1)]
 ```
 
 ![runtime error](/assets/img/algorithm/programmers/practice/slicing-n-square-array/runtime-error.png)
@@ -119,7 +119,7 @@ _이 놈의 지긋지긋한 런타임 에러..._
 
 ```python
 def solution(n, left, right):
-    return [max(no//n, no%n)+1 for no in range(int(left), int(right)+1)]
+    return [max(no%n, no//n)+1 for no in range(int(left), int(right)+1)]
 ```
 
 ## Comment
