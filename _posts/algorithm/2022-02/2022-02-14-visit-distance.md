@@ -92,7 +92,7 @@ def solution(dirs):
     answer, current = 0, [0, 0]
 
     for direction in dirs: # 2
-        from_x, to_x = current
+        from_x, from_y = current
         dx, dy = DISTANCE[direction]
         to_x, to_y = from_x + dx, from_y + dy
 
@@ -116,7 +116,7 @@ def solution(dirs):
     answer, current = 0, [0, 0]
 
     for direction in dirs:
-        from_x, to_x = current
+        from_x, from_y = current
         dx, dy = DISTANCE[direction]
         to_x, to_y = from_x + dx, from_y + dy
 
@@ -145,7 +145,7 @@ def solution(dirs):
     answer, current = 0, [0, 0]
 
     for direction in dirs:
-        from_x, to_x = current
+        from_x, from_y = current
         dx, dy = DISTANCE[direction]
         to_x, to_y = from_x + dx, from_y + dy
 
