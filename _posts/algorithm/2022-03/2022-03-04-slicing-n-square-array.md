@@ -32,7 +32,7 @@ def solution(n, left, right):
 
 ### 1. Brute Force
 
-생각하기 귀찮을 땐 뇌 비우고 Brute Force가 짱이다! 우선 배열을 전부 순회해 보자
+생각하기 귀찮을 땐 머리 비우고 Brute Force가 짱이다! 우선 배열을 전부 순회해 보자
 
 ```python
 def solution(n, left, right):
