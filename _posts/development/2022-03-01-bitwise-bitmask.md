@@ -93,7 +93,7 @@ int c = a ^ b; //   110000
   - **주의**: 파이썬에서는 integer가 signed integer로 동작하는데, 이 연산 후에 bin() 함수 등으로 숫자를 표기하면 값이 생각했던거랑 다르게 찍힌다. (연산은 잘 된다. 표기만 좀 다르게 나올 뿐이지) [[참고: Bitwise Operators in Python]](https://wiki.python.org/moin/BitwiseOperators)
     - 예) ~0b10101001 -> -0b10101000
   - **주의**: OR연산과 NOT연산은 같이 쓰지 말것.
-    - OR연산을 하기 위해 `4 = 100(2)`같이 비트가 하나만 있고 나머지는 다 0으로 채워진 숫자 `3 = 011(2)`를 만들고 싶다면 비트를 반전시킬게 아니라 `100(2)`에서 1을 빼주자.
+    - OR연산을 하기 위해 `4 = 100(2)`같이 비트가 하나만 있고 나머지는 다 0으로 채워진 숫자에서 `3 = 011(2)`를 만들고 싶다면 비트를 반전시킬게 아니라 `100(2)`에서 1을 빼주자.
     - 4 = 100(2)의 비트를 반전시키면 3 = 011(2)이 아니라 -5가 된다. 참고: [The meaning of Bit-wise NOT in Python](https://stackoverflow.com/questions/46573219/the-meaning-of-bit-wise-not-in-python) (링크는 python에 대한 설명이지만 C++도 Java도 동일하다. 아마 모든 언어가 다 그럴듯.)
 
 ```c++
