@@ -3,7 +3,7 @@ title: (프로그래머스) 연습 문제 - 다음 큰 숫자
 author:
   name: Elliot Yim
   link: https://github.com/elliotyim
-date: 2022-03-16 19:05:00 +0900
+date: 2022-03-16 20:26:00 +0900
 categories: ["알고리즘", "프로그래머스"]
 tags: ["알고리즘", "프로그래머스"]
 ---
