@@ -3,7 +3,7 @@ title: Backtracking Basic - Combinations
 author:
   name: Elliot Yim
   link: https://github.com/elliotyim
-date: 2022-06-03 19:18:00 +0900
+date: 2022-06-03 21:18:00 +0900
 categories: ["프로그래밍", "기초"]
 tags: ["백트래킹", "조합"]
 ---
@@ -50,4 +50,27 @@ def helper(iterables, n, result, arr, used):
             helper(iterables, n, result, arr, used)
             used[i] = False
             arr.pop()
+```
+
+# 전체 코드
+
+```python
+def helper(iterables, n, result, arr, used):
+    if len(arr) == n:
+        result.append([_ for _ in arr])
+        return
+
+    for i, item in enumerate(iterables):
+        if not used[i]:
+            used[i] = True
+            arr.append(item)
+            helper(iterables, n, result, arr, used)
+            used[i] = False
+            arr.pop()
+
+
+def get_combinations(iterables, n):
+    result, arr, used = [], [], [False for _ in iterables]
+    helper(iterables, n, result, arr, used)
+    return result
 ```
