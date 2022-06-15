@@ -14,13 +14,15 @@ Link: [https://leetcode.com/problems/trapping-rain-water/](https://leetcode.com/
 
 그냥 우연히 펼친 `파이썬 알고리즘 인터뷰` 책에 전에 혼자서는 못 풀고 책에 있는 풀이의 도움을 받아 풀었던 문제가 있어서 다시 풀어보니 기억이 잘 안나서(제대로 이해를 못 했다는 뜻) 정리하게 됐다.
 
-## I. 문제 정의
+## Solution
+
+### I. 문제 정의
 
 n의 최대치가 20,000이기 때문에 O(n^2)으로 풀면 수행횟수가 4억이 되어버리기 때문에 무조건 시간초과가 난다.
 
 따라서 그보다는 적은 시간내에 풀 수 있는 방식으로 접근해야 한다.
 
-## II. 투 포인터
+### II. 투 포인터
 
 ![](/assets/img/algorithm/leetcode/trapping-rain-water/example.png)
 
