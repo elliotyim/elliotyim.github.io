@@ -1,0 +1,403 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="day-prompt" content="days ago"><meta name="hour-prompt" content="hours ago"><meta name="minute-prompt" content="minutes ago"><meta name="justnow-prompt" content="just now"><meta name="generator" content="Jekyll v4.2.1" /><meta property="og:title" content="2022 KAKAO BLIND RECRUITMENT k진수에서 소수 개수 구하기" /><meta name="author" content="Elliot Yim" /><meta property="og:locale" content="en" /><meta name="description" content="Updated at 2022-01-29" /><meta property="og:description" content="Updated at 2022-01-29" /><link rel="canonical" href="https://elliotyim.github.io/posts/kakao-prime-no/" /><meta property="og:url" content="https://elliotyim.github.io/posts/kakao-prime-no/" /><meta property="og:site_name" content="Elliot’s dev hut" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-01-15T12:15:00+09:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="2022 KAKAO BLIND RECRUITMENT k진수에서 소수 개수 구하기" /><meta name="google-site-verification" content="google_meta_tag_verification" /> <script type="application/ld+json"> {"author":{"@type":"Person","name":"Elliot Yim"},"description":"Updated at 2022-01-29","url":"https://elliotyim.github.io/posts/kakao-prime-no/","@type":"BlogPosting","headline":"2022 KAKAO BLIND RECRUITMENT k진수에서 소수 개수 구하기","dateModified":"2022-01-30T20:47:54+09:00","datePublished":"2022-01-15T12:15:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://elliotyim.github.io/posts/kakao-prime-no/"},"@context":"https://schema.org"}</script><title>2022 KAKAO BLIND RECRUITMENT k진수에서 소수 개수 구하기 | Elliot's dev hut</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Elliot's dev hut"><meta name="application-name" content="Elliot's dev hut"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://fonts.gstatic.com"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials"><link rel="dns-prefetch" href="https://www.google-analytics.com"><link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://cdn.jsdelivr.net"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener("change", () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_KEY); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } } /* ModeToggle */ const toggle = new ModeToggle(); function flipMode() { if (toggle.hasMode) { if (toggle.isSysDarkPrefer) { if (toggle.isLightMode) { toggle.clearMode(); } else { toggle.setLight(); } } else { if (toggle.isDarkMode) { toggle.clearMode(); } else { toggle.setDark(); } } } else { if (toggle.isSysDarkPrefer) { toggle.setLight(); } else { toggle.setDark(); } } toggle.notify(); } /* flipMode() */ </script><body data-spy="scroll" data-target="#toc"><div id="sidebar" class="d-flex flex-column align-items-end" lang="en"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" alt="avatar" class="mx-auto"> <img src="/assets/img/profile/elliot_yim.jpg" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">Elliot's dev hut</a></div><div class="site-subtitle font-italic">Web Developer</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/elliotyim" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['yimsb02','naver.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center topbar-down"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>2022 KAKAO BLIND RECRUITMENT k진수에서 소수 개수 구하기</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> <i class="fa fa-times-circle fa-fw" id="search-cleaner"></i> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>2022 KAKAO BLIND RECRUITMENT k진수에서 소수 개수 구하기</h1><div class="post-meta text-muted"><div> By <em> <a href="https://github.com/elliotyim">Elliot Yim</a> </em></div><div class="d-flex"><div> <span> Posted <em class="timeago" date="2022-01-15 12:15:00 +0900" data-toggle="tooltip" data-placement="bottom" title="Sat, Jan 15, 2022, 12:15 PM +0900" >Jan 15</em> </span> <span> Updated <em class="timeago" date="2022-01-30 20:47:54 +0900 " data-toggle="tooltip" data-placement="bottom" title="Sun, Jan 30, 2022, 8:47 PM +0900" >Jan 30</em> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="1940 words"> <em>10 min</em> read</span></div></div></div><div class="post-content"><p><strong>Updated at 2022-01-29</strong></p><h2 id="link">Link<a href="#link"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li><a href="https://programmers.co.kr/learn/courses/30/lessons/92335">https://programmers.co.kr/learn/courses/30/lessons/92335</a></ul><h2 id="introduction">Introduction<a href="#introduction"><i class="fas fa-hashtag"></i></a></h2></h2><p>달라진 풀이 스타일을 적용하여 다시 풀어보았다. 이번에는 종이, 펜 그리고 손가락 두 개를 가지고 시뮬레이션을 한다.</p><p>슬라이딩 윈도우를 적용한 이 풀이는 <a href="https://elliotyim.github.io/posts/sliding-window/">Sliding Window</a>에서 다룬 내용을 참고하여 진행한다.</p><h2 id="note">Note<a href="#note"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li>python에서 % 연산자를 사용해 어떤 숫자를 10으로 나눈 나머지를 구할 때는 소수점이 붙는 경우가 있으므로 주의<ul><li>(ex) 1 -&gt; 1.0, 0 -&gt; 0.0)</ul></ul><h2 id="solution">Solution<a href="#solution"><i class="fas fa-hashtag"></i></a></h2></h2><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">nums</span><span class="p">,</span> <span class="n">quotient</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(),</span> <span class="n">n</span>
+    <span class="k">while</span> <span class="n">quotient</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">quotient</span> <span class="o">//</span> <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">quotient</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">appendleft</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">remainder</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_prime_no</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">no</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">no</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">no</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="k">def</span> <span class="nf">contain_zero</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">True</span> <span class="k">if</span> <span class="s">'0'</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">no</span><span class="p">)</span> <span class="k">else</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="n">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">no</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">==</span> <span class="s">'0'</span><span class="p">:</span>
+            <span class="n">cur_no</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">no</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">is_prime_no</span><span class="p">(</span><span class="n">cur_no</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">contain_zero</span><span class="p">(</span><span class="n">cur_no</span><span class="p">):</span>
+                <span class="n">answer</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">right</span> <span class="o">=</span> <span class="n">right</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">right</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">no</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># 5
+</span>            <span class="n">cur_no</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">no</span><span class="p">[</span><span class="n">left</span><span class="p">:])</span>
+            <span class="k">if</span> <span class="n">is_prime_no</span><span class="p">(</span><span class="n">cur_no</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">contain_zero</span><span class="p">(</span><span class="n">cur_no</span><span class="p">):</span>
+                <span class="n">answer</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">answer</span>
+</pre></table></code></div></div><hr /><p><strong>풀이</strong></p><p>1, 어떤 수의 k진수를 구하는 법은 그 수를 k로 나누며 0이 될 때까지 나누고 나머지를 이어주면 된다.</p><p>ex) 35를 2진수로 표현하는 방법</p><p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50% 50%'%3E%3C/svg%3E" data-proofer-ignore data-src="/assets/img/algorithm/programmers/kakao/35-k-base.jpg" alt="35" width="50%" height="50%" /></p><p>35 —2진수로 변환—&gt; 100011(2)</p><p>이를 구현한다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">nums</span><span class="p">,</span> <span class="n">quotient</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(),</span> <span class="n">n</span>
+    <span class="k">while</span> <span class="n">quotient</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">quotient</span> <span class="o">//</span> <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">quotient</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">appendleft</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">remainder</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="n">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="c1"># 1
+</span></pre></table></code></div></div><p>2, 이렇게 변환된 숫자를 종이에 쓰고 왼쪽 검지와 오른쪽 검지를 숫자 가장 첫 번째 위치(인덱스 0)에 둔다. 우리는 이 오른쪽 손가락을 숫자의 끝자락까지 움직일거다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">nums</span><span class="p">,</span> <span class="n">quotient</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(),</span> <span class="n">n</span>
+    <span class="k">while</span> <span class="n">quotient</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">quotient</span> <span class="o">//</span> <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">quotient</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">appendleft</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">remainder</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="n">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">no</span><span class="p">):</span> <span class="c1"># 2
+</span>        <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></table></code></div></div><p>3, 자 이제 손가락을 움직이면서 손가락 사이의 글자를 체크할 건데, 생각을 해본다. 우리는 언제 숫자를 체크해야 하나? 바로 0과 0 사이에 숫자가 존재할 때이다.</p><p>즉, 오른쪽 손가락이 0인 지점에 멈췄을 때 손가락 사이의 숫자를 체크하면 된다. (편의상 손가락 사이라는 표현을 했지만 실제로는 왼쪽 손가락이 가리키는 글자까지 포함해서 센다.)</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">nums</span><span class="p">,</span> <span class="n">quotient</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(),</span> <span class="n">n</span>
+    <span class="k">while</span> <span class="n">quotient</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">quotient</span> <span class="o">//</span> <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">quotient</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">appendleft</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">remainder</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="n">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">no</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">==</span> <span class="s">'0'</span><span class="p">:</span> <span class="c1"># 3
+</span>            <span class="n">cur_no</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">no</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">])</span>
+        <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></table></code></div></div><p>4, 문제의 조건에 따르면 숫자는 <code class="language-plaintext highlighter-rouge">각 자릿수에 0을 포함하지 않는 소수</code>이다. 소수이며, 0을 포함하지 않는다.</p><p>3번에서 고른 숫자들을 이 기준에 따라 체크한다. 체크 후에는 양 손가락을 방금 오른쪽 손가락이 있던 바로 다음 위치로 옮겨준다.</p><p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50% 50%'%3E%3C/svg%3E" data-proofer-ignore data-src="/assets/img/algorithm/programmers/kakao/is-6-prime-no.jpg" alt="is 6 prime no" width="50%" height="50%" /></p><p>소수는 1과 자기 자신으로 밖에 나누지 못한다. 즉 1과 자기 자신 이외의 약수를 가지지 않는 수인데, 이 약수를 빠르게 구하는 법을 다 담으면 포스팅이 너무 길어져서 괜찮은 다른 블로그의 링크를 대신한다. (구글에서 약수 찾는 알고리즘 쳐서 제일 위에 나오는 거 링크 걸었다.)</p><ul><li><a href="https://kbw1101.tistory.com/32">[알고리즘] 효율적으로 약수를 찾는 알고리즘 by 욱파카의 괴발개발</a></ul><p>스포일러 하자면, 그 숫자의 제곱근까지만 약수가 되는지 체크해보면 된다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+</pre><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">nums</span><span class="p">,</span> <span class="n">quotient</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(),</span> <span class="n">n</span>
+    <span class="k">while</span> <span class="n">quotient</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">quotient</span> <span class="o">//</span> <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">quotient</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">appendleft</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">remainder</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_prime_no</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">no</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">no</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">no</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="k">def</span> <span class="nf">contain_zero</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">True</span> <span class="k">if</span> <span class="s">'0'</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">no</span><span class="p">)</span> <span class="k">else</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="n">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">no</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">==</span> <span class="s">'0'</span><span class="p">:</span>
+            <span class="n">cur_no</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">no</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">is_prime_no</span><span class="p">(</span><span class="n">cur_no</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">contain_zero</span><span class="p">(</span><span class="n">cur_no</span><span class="p">):</span> <span class="c1"># 4
+</span>                <span class="n">answer</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">right</span> <span class="o">=</span> <span class="n">right</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></table></code></div></div><p>5, 오른쪽 손가락이 마지막 지점까지 갔을 때 그 숫자가 0이 아니면 마지막 손가락 사이의 소수는 체크가 되지 않는다. 따라서 이 경우에는 현재 왼쪽 손가락 부터 앞에 있는 모든 숫자를 체크해준다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">nums</span><span class="p">,</span> <span class="n">quotient</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(),</span> <span class="n">n</span>
+    <span class="k">while</span> <span class="n">quotient</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">quotient</span> <span class="o">//</span> <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">quotient</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">appendleft</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">remainder</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_prime_no</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">no</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">no</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">no</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="k">def</span> <span class="nf">contain_zero</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">True</span> <span class="k">if</span> <span class="s">'0'</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">no</span><span class="p">)</span> <span class="k">else</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="n">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">no</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">==</span> <span class="s">'0'</span><span class="p">:</span>
+            <span class="n">cur_no</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">no</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">is_prime_no</span><span class="p">(</span><span class="n">cur_no</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">contain_zero</span><span class="p">(</span><span class="n">cur_no</span><span class="p">):</span>
+                <span class="n">answer</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">right</span> <span class="o">=</span> <span class="n">right</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">right</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">no</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># 5
+</span>            <span class="n">cur_no</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">no</span><span class="p">[</span><span class="n">left</span><span class="p">:])</span>
+            <span class="k">if</span> <span class="n">is_prime_no</span><span class="p">(</span><span class="n">cur_no</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">contain_zero</span><span class="p">(</span><span class="n">cur_no</span><span class="p">):</span>
+                <span class="n">answer</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">answer</span>
+</pre></table></code></div></div><h2 id="legacy">Legacy<a href="#legacy"><i class="fas fa-hashtag"></i></a></h2></h2><p>지난 풀이.</p><ol><li>주어진 수를 n진수로 변환한다.<li>커서를 두 개 두고 하나를 전진시키면서 커서 사이의 숫자가 소수이면서 0이 포함되어 있지 않다면 정답에 포함시키고 두 커서의 위치를 다음 숫자로 옮긴다.<li>110011 같이 11을 정답에 포함시킨 후 left, right 커서들의 위치가 index 3인 0에(110<strong>0</strong>11) 위치하는 경우가 있다. 이 때는 커서들을 index 4인 1로(1100<strong>1</strong>1) 옮겨준다.</ol><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">nums</span><span class="p">,</span> <span class="n">quotient</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(),</span> <span class="n">n</span>
+    <span class="k">while</span> <span class="n">quotient</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">quotient</span> <span class="o">//</span> <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">quotient</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">appendleft</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">remainder</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_prime_no</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">no</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="n">floor</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">no</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">no</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="k">def</span> <span class="nf">contain_zero</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">True</span> <span class="k">if</span> <span class="s">'0'</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">no</span><span class="p">)</span> <span class="k">else</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">answer</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="p">[],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="n">convert_no</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">no</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">no</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">==</span> <span class="s">'0'</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">left</span> <span class="o">==</span> <span class="n">right</span><span class="p">:</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="n">right</span> <span class="o">=</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cur_no</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">no</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">is_prime_no</span><span class="p">(</span><span class="n">cur_no</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">contain_zero</span><span class="p">(</span><span class="n">cur_no</span><span class="p">):</span>
+                    <span class="n">answer</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_no</span><span class="p">)</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">right</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">no</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">cur_no</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">no</span><span class="p">[</span><span class="n">left</span><span class="p">:])</span>
+                <span class="k">if</span> <span class="n">is_prime_no</span><span class="p">(</span><span class="n">cur_no</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">contain_zero</span><span class="p">(</span><span class="n">cur_no</span><span class="p">):</span>
+                    <span class="n">answer</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_no</span><span class="p">)</span>
+        <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</pre></table></code></div></div><h2 id="comment">Comment<a href="#comment"><i class="fas fa-hashtag"></i></a></h2></h2><p>코테에 시간제한이 있어야 변별력이 있겠지만 없었으면 좋겠다. 난 같은 코드를 진득하니 보면서 계속 깔끔하게 다듬어나가는 걸 좋아하는데 시간제한이 있으면 너무 허겁지겁 푸느라 가독성이 개판이 되어버린다.</p><p>아직 실력이 부족해서 한 번에 깔끔한 코드를 못 짜서 그런거겠지?</p><p>2022-01-29 내용 추가</p><p>달라진 문제 풀이 스타일 덕분에 이 문제가 어느정도 해결될 것 같은 조짐이 보인다. 뭔가 희망이 생겼다.</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/'>알고리즘</a>, <a href='/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/'>프로그래머스</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="post-tag no-text-decoration" >알고리즘</a> <a href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/" class="post-tag no-text-decoration" >프로그래머스</a> <a href="/tags/2022/" class="post-tag no-text-decoration" >2022</a> <a href="/tags/%EC%B9%B4%EC%B9%B4%EC%98%A4/" class="post-tag no-text-decoration" >카카오</a> <a href="/tags/%EB%B8%94%EB%9D%BC%EC%9D%B8%EB%93%9C/" class="post-tag no-text-decoration" >블라인드</a> <a href="/tags/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%94%A9-%EC%9C%88%EB%8F%84%EC%9A%B0/" class="post-tag no-text-decoration" >슬라이딩 윈도우</a> <a href="/tags/%ED%88%AC%ED%8F%AC%EC%9D%B8%ED%84%B0/" class="post-tag no-text-decoration" >투포인터</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=2022 KAKAO BLIND RECRUITMENT k진수에서 소수 개수 구하기 - Elliot's dev hut&url=https://elliotyim.github.io/posts/kakao-prime-no/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=2022 KAKAO BLIND RECRUITMENT k진수에서 소수 개수 구하기 - Elliot's dev hut&u=https://elliotyim.github.io/posts/kakao-prime-no/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://telegram.me/share?text=2022 KAKAO BLIND RECRUITMENT k진수에서 소수 개수 구하기 - Elliot's dev hut&url=https://elliotyim.github.io/posts/kakao-prime-no/" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recent Update</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/trapping-rain-water/">Leetcode - Trapping Rain Water</a><li><a href="/posts/leetcode-22-06-07/">Leetcode - Implement Trie (Prefix Tree)</a><li><a href="/posts/backtracking-basic/">Backtracking Basic - Combinations</a><li><a href="/posts/travel-path/">(프로그래머스) 연습 문제 - 여행경로</a><li><a href="/posts/check-distances/">2021 카카오 채용연계형 인턴십 - 거리두기 확인하기</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a> <a class="post-tag" href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/">프로그래머스</a> <a class="post-tag" href="/tags/%EC%B9%B4%EC%B9%B4%EC%98%A4/">카카오</a> <a class="post-tag" href="/tags/2018/">2018</a> <a class="post-tag" href="/tags/%EB%B8%94%EB%9D%BC%EC%9D%B8%EB%93%9C/">블라인드</a> <a class="post-tag" href="/tags/%EC%84%9C%EB%A8%B8-%EC%9C%88%ED%84%B0%EC%BD%94%EB%94%A9/">서머/윈터코딩</a> <a class="post-tag" href="/tags/%ED%88%AC%ED%8F%AC%EC%9D%B8%ED%84%B0/">투포인터</a> <a class="post-tag" href="/tags/leetcode/">leetcode</a> <a class="post-tag" href="/tags/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%94%A9-%EC%9C%88%EB%8F%84%EC%9A%B0/">슬라이딩 윈도우</a> <a class="post-tag" href="/tags/%EC%9B%94%EA%B0%84-%EC%BD%94%EB%93%9C-%EC%B1%8C%EB%A6%B0%EC%A7%80/">월간 코드 챌린지</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="tail-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/kakao-compression/"><div class="card-body"> <em class="timeago small" date="2022-01-24 14:56:00 +0900" >Jan 24</em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>2018 KAKAO BLIND RECRUITMENT [3차] 압축</h3><div class="text-muted small"><p> Link https://programmers.co.kr/learn/courses/30/lessons/17684 Introduction 나한테는 안 좋은 습관이 있다. 바로 코딩하기 전에 내가 해결하려는 문제가 명확하고 깔끔한 어떤 절대적 진리와도 같은(마치 유명한 수학 공식들과도 같이 아름다운 형태를 지닌) 풀이가 있을 것이라고 생각하고 ...</p></div></div></a></div><div class="card"> <a href="/posts/kakao-parking-fee/"><div class="card-body"> <em class="timeago small" date="2022-01-17 12:35:00 +0900" >Jan 17</em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>2022 KAKAO BLIND RECRUITMENT 주차 요금 계산</h3><div class="text-muted small"><p> Note 문제에 적혀 있는대로 풀면 된다. Solution 입차시간과 출차시간을 계산해서 차량별로 누적시간을 계산해둔다. 입차만 하고 출차를 하지 않은 차량이 남아있으면 이 차량을 23시 59분에 출차한 것으로 요금을 계산한다. 누적시간이 기본요금보다 많으면 기본요금 + 누적시간에 따른 단위요금을 계산하고, 적으면 기본요금만 ...</p></div></div></a></div><div class="card"> <a href="/posts/kakao-archery/"><div class="card-body"> <em class="timeago small" date="2022-01-19 19:04:00 +0900" >Jan 19</em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>2022 KAKAO BLIND RECRUITMENT 양궁대회</h3><div class="text-muted small"><p> Updated at 2022-01-30 Link https://programmers.co.kr/learn/courses/30/lessons/92342 Introduction 이번에도 달라진 풀이 방법을 적용하여 다시 풀어본다. 아이디어는 똑같다. 화살을 가지고 큰 점수부터 점수판을 순회하며 쏠지 말지 결정한다. 점수 계산을 하...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/rushrushrush/" class="btn btn-outline-primary" prompt="Older"><p>2021년을 보내며</p></a> <a href="/posts/kakao-parking-fee/" class="btn btn-outline-primary" prompt="Newer"><p>2022 KAKAO BLIND RECRUITMENT 주차 요금 계산</p></a></div></div></div></div><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center text-muted"><div class="footer-left"><p class="mb-0"> © 2022 <a href="https://github.com/elliotyim">Elliot Yim</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a> <a class="post-tag" href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/">프로그래머스</a> <a class="post-tag" href="/tags/%EC%B9%B4%EC%B9%B4%EC%98%A4/">카카오</a> <a class="post-tag" href="/tags/2018/">2018</a> <a class="post-tag" href="/tags/%EB%B8%94%EB%9D%BC%EC%9D%B8%EB%93%9C/">블라인드</a> <a class="post-tag" href="/tags/%EC%84%9C%EB%A8%B8-%EC%9C%88%ED%84%B0%EC%BD%94%EB%94%A9/">서머/윈터코딩</a> <a class="post-tag" href="/tags/%ED%88%AC%ED%8F%AC%EC%9D%B8%ED%84%B0/">투포인터</a> <a class="post-tag" href="/tags/leetcode/">leetcode</a> <a class="post-tag" href="/tags/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%94%A9-%EC%9C%88%EB%8F%84%EC%9A%B0/">슬라이딩 윈도우</a> <a class="post-tag" href="/tags/%EC%9B%94%EA%B0%84-%EC%BD%94%EB%93%9C-%EC%B1%8C%EB%A6%B0%EC%A7%80/">월간 코드 챌린지</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/lozad/dist/lozad.min.js,npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.16.1,npm/bootstrap@4/dist/js/bootstrap.min.js"></script> <script defer src="/app.js"></script> <script defer src="https://www.googletagmanager.com/gtag/js?id="></script> <script> document.addEventListener("DOMContentLoaded", function(event) { window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', ''); }); </script>
